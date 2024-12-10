@@ -6,6 +6,7 @@ export default {
       Jua: ["Jua"],
       BagelFatOne: ["Bagel Fat One"],
       Pretendard: ["Pretendard"],
+      tenada: ["Tenada"],
     },
   },
   plugins: [],

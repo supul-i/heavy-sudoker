@@ -20,7 +20,20 @@
     font-family: "Bagel Fat One", system-ui;
     font-weight: 400;
     font-style: normal;
-    font-display: swap;
     src: url("../assets/fonts/BagelFatOne-Regular.ttf");
+  }
+
+  @font-face {
+    font-family: "Pretendard";
+    font-weight: 45 920;
+    font-style: normal;
+    font-display: swap;
+    src: url("../assets/fonts/PretendardVariable.woff2") format("woff2-variations");
+  }
+
+  @font-face {
+    font-family: "Tenada";
+    font-display: swap;
+    src: url("../assets/fonts/Tenada.ttf");
   }
 }
