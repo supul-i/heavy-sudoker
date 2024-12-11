@@ -1,6 +1,12 @@
+import { useNavigate } from "react-router-dom";
 import OutlineButton from "../shared/components/OutlineButton";
 
 function Home() {
+  const navigate = useNavigate();
+  const playSudoku = (mode) => {
+    navigate("/sudoku", { state: { difficulty: mode } });
+  };
+
   return (
     <div className="h-screen px-4 dark:bg-black">
       <div className="relative flex items-center justify-between pt-6 text-sm font-semibold leading-6 text-slate-700 lg:pt-8 dark:text-slate-200"></div>
@@ -9,9 +15,9 @@ function Home() {
           HEAVY SUDOKER
         </span>
         <div className="mt-24 flex justify-center space-x-8 font-Pretendard">
-          <OutlineButton text="쉬움" />
-          <OutlineButton text="보통" />
-          <OutlineButton text="어려움" />
+          <OutlineButton onClick={() => playSudoku("easy")} text="쉬움" />
+          <OutlineButton onClick={() => playSudoku("normal")} text="보통" />
+          <OutlineButton onClick={() => playSudoku("hard")} text="어려움" />
         </div>
       </div>
     </div>
