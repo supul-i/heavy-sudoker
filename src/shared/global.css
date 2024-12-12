@@ -36,4 +36,25 @@
     font-display: swap;
     src: url("../assets/fonts/Tenada.ttf");
   }
+
+  .cell {
+    background: #ffffff;
+    font-size: 40px;
+  }
+
+  .cell:nth-child(3n):not(:nth-child(9n)) {
+    margin-right: 4px;
+  }
+
+  .cell:nth-child(27n + 28),
+  .cell:nth-child(27n + 29),
+  .cell:nth-child(27n + 30),
+  .cell:nth-child(27n + 31),
+  .cell:nth-child(27n + 32),
+  .cell:nth-child(27n + 33),
+  .cell:nth-child(27n + 34),
+  .cell:nth-child(27n + 35),
+  .cell:nth-child(27n + 36) {
+    margin-top: 4px;
+  }
 }
