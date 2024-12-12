@@ -101,3 +101,4 @@ const setSudoku = () => {
 };
 
 export default setSudoku;
+export { getRandomNum };
