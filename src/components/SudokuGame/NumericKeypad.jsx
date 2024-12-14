@@ -1,7 +1,16 @@
+import usePuzzleStore from "../../store/usePuzzleStore";
+import useUserStore from "../../store/useUserStore";
+
 function NumericKeypad() {
   const numbersOfPad = Array(9)
     .fill(0)
     .map((_, i) => i + 1);
+  const currentCell = usePuzzleStore((state) => state.currentCell);
+  const updateUserInputValue = useUserStore((state) => state.updateUserInputValue);
+
+  const handleSelectedNumber = (number) => {
+    updateUserInputValue(currentCell.row, currentCell.col, number);
+  };
 
   return (
     <div className="h-80 w-56">
@@ -18,6 +27,7 @@ function NumericKeypad() {
           <div
             key={number}
             className="h-16 w-16 cursor-pointer rounded-md border py-3 font-Pretendard text-3xl font-extrabold"
+            onClick={() => handleSelectedNumber(number)}
           >
             {number}
           </div>
