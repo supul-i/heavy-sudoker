@@ -1,6 +1,5 @@
 import { getRandomNum } from "./setSudoku";
-
-const PUZZLE_SIZE = 9;
+import { PUZZLE_SIZE } from "../constants/puzzle";
 
 const setEmptyCell = (colIndexes) => {
   const selectableIndexes = Array.from({ length: 9 }, (_, index) => index).filter(

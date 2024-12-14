@@ -1,4 +1,5 @@
-const PUZZLE_SIZE = 9;
+import { PUZZLE_SIZE } from "../constants/puzzle";
+
 const getRandomNum = (maxNumber) => Math.floor(Math.random() * maxNumber);
 
 const setDiagonalBlock = (sudoku) => {
