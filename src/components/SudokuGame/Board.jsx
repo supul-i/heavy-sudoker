@@ -5,7 +5,14 @@ import useUserStore from "../../store/useUserStore";
 import Cell from "./Cell";
 
 function Board({ sudokuMap, positionOfEmptyCell }) {
+  const setCurrentCell = usePuzzleStore((state) => state.setCurrentCell);
   const userInputValues = useUserStore((state) => state.userInputValues);
+
+  useEffect(() => {
+    const defaultSelectedCell = Math.min(...positionOfEmptyCell[0]);
+
+    setCurrentCell({ row: 0, col: defaultSelectedCell });
+  }, [positionOfEmptyCell, setCurrentCell]);
 
   const isEmpty = (rowIndex, colIndex) => {
     return positionOfEmptyCell[rowIndex].includes(colIndex);
