@@ -1,14 +1,32 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { PUZZLE_SIZE } from "../constants/puzzle";
 import OutlineButton from "../shared/components/OutlineButton";
 import usePuzzleStore from "../store/usePuzzleStore";
 import useUserStore from "../store/useUserStore";
+import getEmptyCellsIndex from "../utils/getEmptyCellsIndex";
+import setSudoku from "../utils/setSudoku";
 
 function Home() {
   const navigate = useNavigate();
+  const setAnswerSudoku = usePuzzleStore((state) => state.setAnswerSudoku);
+  const setEmptyCellPosition = usePuzzleStore((state) => state.setEmptyCellPosition);
   const resetPuzzle = usePuzzleStore((state) => state.resetPuzzle);
   const resetUserHistory = useUserStore((state) => state.resetUserHistory);
-  const playSudoku = (mode) => {
-    navigate("/sudoku", { state: { difficulty: mode } });
+
+  const playSudoku = (difficultyLevel) => {
+    const sudokuMap = Array(PUZZLE_SIZE)
+      .fill()
+      .map(() => setSudoku());
+    setAnswerSudoku(sudokuMap);
+
+    const emptyCellPosition = Array(PUZZLE_SIZE)
+      .fill()
+      .map(() => getEmptyCellsIndex(difficultyLevel));
+
+    setEmptyCellPosition(emptyCellPosition);
+
+    navigate("/sudoku");
   };
 
   useEffect(() => {
