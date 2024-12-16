@@ -44,6 +44,7 @@ export default [
       "react/jsx-props-no-spreading": "off",
       "react/react-in-jsx-scope": "off",
       "react/button-has-type": "off",
+      "react/no-unknown-property": "off",
       "react/jsx-filename-extension": ["warn", { extensions: [".js", ".jsx"] }],
       "prettier/prettier": "error",
     },
