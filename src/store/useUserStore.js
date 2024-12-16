@@ -18,6 +18,10 @@ const useUserStore = create(
       set((state) => {
         state.userInputValues[rowIndex][colIndex] = newInputValue;
       }),
+    resetUserHistory: () =>
+      set(() => ({
+        ...initialState,
+      })),
   }))
 );
 

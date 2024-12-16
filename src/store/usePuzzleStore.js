@@ -21,6 +21,10 @@ const usePuzzleStore = create((set) => ({
     set(() => ({
       currentCell: currentCell,
     })),
+  resetPuzzle: () =>
+    set(() => ({
+      ...initialState,
+    })),
 }));
 
 export default usePuzzleStore;

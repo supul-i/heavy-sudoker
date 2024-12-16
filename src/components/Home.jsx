@@ -1,11 +1,20 @@
 import { useNavigate } from "react-router-dom";
 import OutlineButton from "../shared/components/OutlineButton";
+import usePuzzleStore from "../store/usePuzzleStore";
+import useUserStore from "../store/useUserStore";
 
 function Home() {
   const navigate = useNavigate();
+  const resetPuzzle = usePuzzleStore((state) => state.resetPuzzle);
+  const resetUserHistory = useUserStore((state) => state.resetUserHistory);
   const playSudoku = (mode) => {
     navigate("/sudoku", { state: { difficulty: mode } });
   };
+
+  useEffect(() => {
+    resetPuzzle();
+    resetUserHistory();
+  }, [resetPuzzle, resetUserHistory]);
 
   return (
     <div className="h-screen px-4 dark:bg-black">
