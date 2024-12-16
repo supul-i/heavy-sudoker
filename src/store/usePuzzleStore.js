@@ -4,6 +4,7 @@ const initialState = {
   answerSudoku: [],
   emptyCellPosition: Array.from({ length: 9 }, () => []),
   currentCell: { row: 0, col: 0 },
+  viewMode: "threeDimensions",
 };
 
 const usePuzzleStore = create((set) => ({
@@ -20,6 +21,10 @@ const usePuzzleStore = create((set) => ({
   setCurrentCell: (currentCell) =>
     set(() => ({
       currentCell: currentCell,
+    })),
+  setViewMode: () =>
+    set((state) => ({
+      viewMode: state.viewMode === "threeDimensions" ? "twoDimensions" : "threeDimensions",
     })),
   resetPuzzle: () =>
     set(() => ({
