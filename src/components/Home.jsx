@@ -19,16 +19,17 @@ function Home() {
     resetUserHistory();
   }, [resetPuzzle, resetUserHistory]);
 
+  const handlePlaySudoku = (difficultyLevel) => {
     const sudokuMap = Array(PUZZLE_SIZE)
       .fill()
       .map(() => setSudoku());
     setAnswerSudoku(sudokuMap);
 
-    const emptyCellPosition = Array(PUZZLE_SIZE)
+    const emptyCellPositions = Array(PUZZLE_SIZE)
       .fill()
       .map(() => getEmptyCellsIndex(difficultyLevel));
 
-    setEmptyCellPosition(emptyCellPosition);
+    setEmptyCellPosition(emptyCellPositions);
 
     navigate("/sudoku");
   };
@@ -46,9 +47,9 @@ function Home() {
           HEAVY SUDOKER
         </span>
         <div className="mt-24 flex justify-center space-x-8 font-Pretendard">
-          <OutlineButton onClick={() => playSudoku("easy")} text="쉬움" />
-          <OutlineButton onClick={() => playSudoku("normal")} text="보통" />
-          <OutlineButton onClick={() => playSudoku("hard")} text="어려움" />
+          <OutlineButton onClick={() => handlePlaySudoku("easy")} text="쉬움" />
+          <OutlineButton onClick={() => handlePlaySudoku("normal")} text="보통" />
+          <OutlineButton onClick={() => handlePlaySudoku("hard")} text="어려움" />
         </div>
       </div>
     </div>
