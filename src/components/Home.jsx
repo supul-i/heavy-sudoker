@@ -14,7 +14,11 @@ function Home() {
   const resetPuzzle = usePuzzleStore((state) => state.resetPuzzle);
   const resetUserHistory = useUserStore((state) => state.resetUserHistory);
 
-  const playSudoku = (difficultyLevel) => {
+  useEffect(() => {
+    resetPuzzle();
+    resetUserHistory();
+  }, [resetPuzzle, resetUserHistory]);
+
     const sudokuMap = Array(PUZZLE_SIZE)
       .fill()
       .map(() => setSudoku());
