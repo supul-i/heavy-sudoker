@@ -20,8 +20,11 @@ function NumericKeypad() {
 
   return (
     <div className="h-80 w-56">
-      <button className="border border-gray-700 p-2 text-center" onClick={handleViewMode}>
-        viewMode
+      <button
+        className="mb-3 rounded-lg bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-slate-700"
+        onClick={handleViewMode}
+      >
+        보기모드 전환
       </button>
       <div className="mb-3 grid grid-cols-2 gap-3">
         <button className="rounded-lg bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-slate-700">

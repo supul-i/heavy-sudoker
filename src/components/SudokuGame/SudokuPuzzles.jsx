@@ -45,8 +45,8 @@ function SudokuPuzzles() {
   };
 
   return (
-    <div className="grid h-screen place-items-center">
-      <div className="grid grid-cols-2 place-items-center p-20">
+    <div className="grid h-screen place-items-center dark:bg-black">
+      <div className="grid grid-cols-2 place-items-center">
         {viewMode === "threeDimensions" ? (
           <CubeBoard getCubeBoard={getCubeBoard} />
         ) : (

@@ -7,14 +7,14 @@ function CubeBoard({ getCubeBoard }) {
   const cubeMap = getCubeBoard();
 
   return (
-    <div className="h-[600px] w-[600px]">
+    <div className="h-screen w-[1200px]">
       <Canvas
         gl={{ antialias: true }}
         camera={{
           fov: 60,
           near: 0.1,
           far: 100,
-          position: [10, 10, 10],
+          position: [15, 15, 15],
         }}
         scene={{ background: new Color(0x000000) }}
       >
