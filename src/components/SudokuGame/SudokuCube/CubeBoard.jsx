@@ -9,14 +9,12 @@ function CubeBoard({ getCubeBoard }) {
   return (
     <div className="h-screen w-[1200px]">
       <Canvas
-        gl={{ antialias: true }}
         camera={{
           fov: 60,
           near: 0.1,
           far: 100,
           position: [15, 15, 15],
         }}
-        scene={{ background: new Color(0x000000) }}
       >
         <CubeOrbitControls />
         {cubeMap}
