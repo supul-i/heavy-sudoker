@@ -6,6 +6,7 @@ import Cell from "./Cell";
 
 function Board({ sudokuMap, positionOfEmptyCell }) {
   const setCurrentCell = usePuzzleStore((state) => state.setCurrentCell);
+  const currentCell = usePuzzleStore((state) => state.currentCell);
   const userInputValues = useUserStore((state) => state.userInputValues);
 
   useEffect(() => {
@@ -16,6 +17,13 @@ function Board({ sudokuMap, positionOfEmptyCell }) {
 
   const isEmpty = (rowIndex, colIndex) => {
     return positionOfEmptyCell[rowIndex].includes(colIndex);
+  };
+
+  const isSelected = (rowIndex, colIndex) => {
+    if (currentCell.row === rowIndex && currentCell.col === colIndex) {
+      return true;
+    }
+    return false;
   };
 
   return (
@@ -29,7 +37,7 @@ function Board({ sudokuMap, positionOfEmptyCell }) {
               colIndex={colIndex}
               fixedNumber={number}
               isEmpty={isEmpty(rowIndex, colIndex)}
-              userInputValue={userInputValues[rowIndex][colIndex]}
+              isSelected={isSelected(rowIndex, colIndex)}
             />
           );
         });
