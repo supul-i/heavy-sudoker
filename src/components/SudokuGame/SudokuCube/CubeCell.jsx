@@ -1,4 +1,4 @@
-import { Line, Text } from "@react-three/drei";
+import { Billboard, Line, Text } from "@react-three/drei";
 import PropTypes from "prop-types";
 
 function CubeCell({ position, number, isEmpty }) {
@@ -36,15 +36,11 @@ function CubeCell({ position, number, isEmpty }) {
         segments
         dashed={false}
       />
-      <Text
-        scale={[0.7, 0.7, 0.7]}
-        color="white"
-        anchorX="center"
-        anchorY="middle"
-        position={[0.5, 0.5, -0.5]}
-      >
-        {isEmpty ? null : number}
-      </Text>
+      <Billboard position={[0.5, 0.5, -0.5]}>
+        <Text scale={[0.5, 0.5, 0.5]} color="black" anchorX="center" anchorY="middle">
+          {isEmpty ? null : number}
+        </Text>
+      </Billboard>
     </group>
   );
 }
