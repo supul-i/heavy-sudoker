@@ -15,10 +15,12 @@ const usePuzzleStore = create((set) => ({
     set(() => ({
       answerSudoku: newPuzzle,
     })),
+
   setEmptyCellPosition: (emptyCellPosition) =>
     set(() => ({
       emptyCellPosition: emptyCellPosition,
     })),
+
   setCurrentCell: (newCurrentCell) =>
     set((state) => ({
       currentCell: {
@@ -27,15 +29,18 @@ const usePuzzleStore = create((set) => ({
         col: newCurrentCell.col,
       },
     })),
+
   setCurrentLayer: (newLayer) =>
     set(() => ({
       currentLayer: newLayer,
     })),
+
     })),
   setViewMode: () =>
     set((state) => ({
       viewMode: state.viewMode === "threeDimensions" ? "twoDimensions" : "threeDimensions",
     })),
+
   resetPuzzle: () =>
     set(() => ({
       ...initialState,

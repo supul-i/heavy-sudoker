@@ -16,10 +16,12 @@ const useUserStore = create(
       set(() => ({
         userInputValues: userInputValues,
       })),
+
     updateUserInputValue: (layer, rowIndex, colIndex, newInputValue) =>
       set((state) => {
         state.userInputValues[layer][rowIndex][colIndex] = newInputValue;
       }),
+
     resetUserHistory: () =>
       set(() => ({
         ...initialState,
