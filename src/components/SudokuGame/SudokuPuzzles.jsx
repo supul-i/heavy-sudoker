@@ -11,6 +11,7 @@ function SudokuPuzzles() {
   const answerSudoku = usePuzzleStore((state) => state.answerSudoku);
   const emptyCellPosition = usePuzzleStore((state) => state.emptyCellPosition);
   const currentLayer = usePuzzleStore((state) => state.currentLayer);
+  const userInputValues = useUserStore((state) => state.userInputValues);
   const [sudokuMap, setSudokuMap] = useState([]);
   const [positionOfEmptyCell, setPositionOfEmptyCell] = useState([]);
 
@@ -33,6 +34,7 @@ function SudokuPuzzles() {
               position: [x, y, z],
               number: answerSudoku[8 - x][8 - y][8 - z],
               isEmpty: isEmpty(8 - x, 8 - y, 8 - z),
+              userInputValue: userInputValues[8 - x][8 - y][8 - z],
             })
           );
         }

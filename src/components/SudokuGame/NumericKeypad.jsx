@@ -7,10 +7,11 @@ function NumericKeypad() {
     .map((_, i) => i + 1);
   const currentCell = usePuzzleStore((state) => state.currentCell);
   const setViewMode = usePuzzleStore((state) => state.setViewMode);
+  const currentLayer = usePuzzleStore((state) => state.currentLayer);
   const updateUserInputValue = useUserStore((state) => state.updateUserInputValue);
 
   const handleSelectedNumber = (number) => {
-    updateUserInputValue(currentCell.row, currentCell.col, number);
+    updateUserInputValue(8 - currentLayer, currentCell.row, currentCell.col, number);
   };
 
   const handleViewMode = () => {
