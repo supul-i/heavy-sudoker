@@ -1,4 +1,6 @@
+import { useEffect, useState } from "react";
 import usePuzzleStore from "../../store/usePuzzleStore";
+import useUserStore from "../../store/useUserStore";
 import Board from "../SudokuGame/Board";
 import NumericKeypad from "../SudokuGame/NumericKeypad";
 import CubeBoard from "./SudokuCube/CubeBoard";
@@ -8,12 +10,19 @@ function SudokuPuzzles() {
   const viewMode = usePuzzleStore((state) => state.viewMode);
   const answerSudoku = usePuzzleStore((state) => state.answerSudoku);
   const emptyCellPosition = usePuzzleStore((state) => state.emptyCellPosition);
+  const currentLayer = usePuzzleStore((state) => state.currentLayer);
+  const [sudokuMap, setSudokuMap] = useState([]);
+  const [positionOfEmptyCell, setPositionOfEmptyCell] = useState([]);
 
-  const isEmpty = (layer, rowIndex, colIndex) => {
-    return emptyCellPosition[layer][rowIndex].includes(colIndex);
-  };
+  useEffect(() => {
+    setSudokuMap(answerSudoku[8 - currentLayer]);
+    setPositionOfEmptyCell(emptyCellPosition[8 - currentLayer]);
+  }, [answerSudoku, emptyCellPosition, currentLayer]);
 
   const getCubeBoard = () => {
+    const isEmpty = (layer, rowIndex, colIndex) => {
+      return emptyCellPosition[layer][rowIndex].includes(colIndex);
+    };
     const cubeBoard = [];
 
     for (let x = 8; x >= 0; x--) {
@@ -39,7 +48,7 @@ function SudokuPuzzles() {
         {viewMode === "threeDimensions" ? (
           <CubeBoard getCubeBoard={getCubeBoard} />
         ) : (
-          <Board sudokuMap={answerSudoku} positionOfEmptyCell={emptyCellPosition} />
+          <Board sudokuMap={sudokuMap} positionOfEmptyCell={positionOfEmptyCell} />
         )}
         <NumericKeypad />
       </div>
