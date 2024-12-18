@@ -4,6 +4,7 @@ const initialState = {
   answerSudoku: [],
   emptyCellPosition: Array.from({ length: 9 }, () => []),
   currentCell: { row: 0, col: 0 },
+  currentLayer: 8,
   viewMode: "threeDimensions",
 };
 
@@ -18,9 +19,18 @@ const usePuzzleStore = create((set) => ({
     set(() => ({
       emptyCellPosition: emptyCellPosition,
     })),
-  setCurrentCell: (currentCell) =>
+  setCurrentCell: (newCurrentCell) =>
+    set((state) => ({
+      currentCell: {
+        ...state.currentCell,
+        row: newCurrentCell.row,
+        col: newCurrentCell.col,
+      },
+    })),
+  setCurrentLayer: (newLayer) =>
     set(() => ({
-      currentCell: currentCell,
+      currentLayer: newLayer,
+    })),
     })),
   setViewMode: () =>
     set((state) => ({
