@@ -37,7 +37,7 @@ function SudokuPuzzles() {
     <div className="grid h-screen place-items-center">
       <div className="grid grid-cols-2 place-items-center p-20">
         {viewMode === "threeDimensions" ? (
-          <CubeBoard cubeMap={getCubeBoard()} />
+          <CubeBoard getCubeBoard={getCubeBoard} />
         ) : (
           <Board sudokuMap={answerSudoku} positionOfEmptyCell={emptyCellPosition} />
         )}

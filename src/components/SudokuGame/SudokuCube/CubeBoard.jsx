@@ -3,7 +3,9 @@ import PropTypes from "prop-types";
 import { Color } from "three";
 import CubeOrbitControls from "./CubeOrbitControls";
 
-function CubeBoard({ cubeMap }) {
+function CubeBoard({ getCubeBoard }) {
+  const cubeMap = getCubeBoard();
+
   return (
     <div className="h-[600px] w-[600px]">
       <Canvas
@@ -24,7 +26,7 @@ function CubeBoard({ cubeMap }) {
 }
 
 CubeBoard.propTypes = {
-  cubeMap: PropTypes.array.isRequired,
+  getCubeBoard: PropTypes.func.isRequired,
 };
 
 export default CubeBoard;
