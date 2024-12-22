@@ -30,12 +30,13 @@ function SudokuPuzzles() {
       for (let y = 8; y >= 0; y--) {
         for (let z = 8; z >= 0; z--) {
           cubeBoard.push(
-            CubeCell({
-              position: [x, y, z],
-              number: answerSudoku[8 - x][8 - y][8 - z],
-              isEmpty: isEmpty(8 - x, 8 - y, 8 - z),
-              userInputValue: userInputValues[8 - x][8 - y][8 - z],
-            })
+            <CubeCell
+              key={`${x}${y}${z}`}
+              position={[x, y, z]}
+              number={answerSudoku[8 - x][8 - y][8 - z]}
+              isEmpty={isEmpty(8 - x, 8 - y, 8 - z)}
+              userInputValue={userInputValues[8 - x][8 - y][8 - z]}
+            />
           );
         }
       }
