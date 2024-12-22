@@ -1,6 +1,5 @@
 import { Canvas } from "@react-three/fiber";
 import PropTypes from "prop-types";
-import { Color } from "three";
 import CubeOrbitControls from "./CubeOrbitControls";
 
 function CubeBoard({ getCubeBoard }) {
