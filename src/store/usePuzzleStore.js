@@ -35,7 +35,6 @@ const usePuzzleStore = create((set) => ({
       currentLayer: newLayer,
     })),
 
-    })),
   setViewMode: () =>
     set((state) => ({
       viewMode: state.viewMode === "threeDimensions" ? "twoDimensions" : "threeDimensions",
