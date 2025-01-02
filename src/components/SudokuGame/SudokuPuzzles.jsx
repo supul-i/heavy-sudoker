@@ -14,11 +14,16 @@ function SudokuPuzzles() {
   const userInputValues = useUserStore((state) => state.userInputValues);
   const [sudokuMap, setSudokuMap] = useState([]);
   const [positionOfEmptyCell, setPositionOfEmptyCell] = useState([]);
+  const [isLayerView, setIsLayerView] = useState(false);
 
   useEffect(() => {
     setSudokuMap(answerSudoku[8 - currentLayer]);
     setPositionOfEmptyCell(emptyCellPosition[8 - currentLayer]);
   }, [answerSudoku, emptyCellPosition, currentLayer]);
+
+  const handleLayerView = () => {
+    setIsLayerView(!isLayerView);
+  };
 
   const getCubeBoard = () => {
     const isEmpty = (layer, rowIndex, colIndex) => {
@@ -49,11 +54,11 @@ function SudokuPuzzles() {
     <div className="grid h-screen place-items-center dark:bg-black">
       <div className="grid grid-cols-2 place-items-center">
         {viewMode === "threeDimensions" ? (
-          <CubeBoard getCubeBoard={getCubeBoard} />
+          <CubeBoard getCubeBoard={getCubeBoard} isLayerView={isLayerView} />
         ) : (
           <Board sudokuMap={sudokuMap} positionOfEmptyCell={positionOfEmptyCell} />
         )}
-        <NumericKeypad />
+        <NumericKeypad handleLayerView={handleLayerView} />
       </div>
     </div>
   );
