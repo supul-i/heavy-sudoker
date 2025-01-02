@@ -1,9 +1,16 @@
 import { Canvas } from "@react-three/fiber";
 import PropTypes from "prop-types";
+import { PUZZLE_SIZE } from "../../../constants/puzzle";
+import CubeGroup from "./CubeGroup";
 import CubeOrbitControls from "./CubeOrbitControls";
 
-function CubeBoard({ getCubeBoard }) {
+function CubeBoard({ getCubeBoard, isLayerView }) {
   const cubeMap = getCubeBoard();
+  const xValues = Array.from({ length: PUZZLE_SIZE }, (_, i) => i);
+  const xAxisCubeGroups = xValues.map((xPosition) => ({
+    xPosition,
+    cubes: cubeMap.filter((cube) => cube.props.position[0] === xPosition),
+  }));
 
   return (
     <div className="h-screen w-[1200px]">
@@ -16,7 +23,9 @@ function CubeBoard({ getCubeBoard }) {
         }}
       >
         <CubeOrbitControls />
-        {cubeMap}
+        {xAxisCubeGroups.map((group) => (
+          <CubeGroup key={group.xPosition} group={group} isLayerView={isLayerView} />
+        ))}
       </Canvas>
     </div>
   );
@@ -24,6 +33,7 @@ function CubeBoard({ getCubeBoard }) {
 
 CubeBoard.propTypes = {
   getCubeBoard: PropTypes.func.isRequired,
+  isLayerView: PropTypes.bool.isRequired,
 };
 
 export default CubeBoard;
