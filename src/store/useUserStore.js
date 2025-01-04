@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 import { PUZZLE_SIZE } from "../constants/puzzle";
+import { persist } from "zustand/middleware";
 
 const initialState = {
   userInputValues: Array.from({ length: PUZZLE_SIZE }, () =>
@@ -9,24 +10,29 @@ const initialState = {
 };
 
 const useUserStore = create(
-  immer((set) => ({
-    ...initialState,
-
-    setUserInputValues: (userInputValues) =>
-      set(() => ({
-        userInputValues: userInputValues,
-      })),
-
-    updateUserInputValue: (layer, rowIndex, colIndex, newInputValue) =>
-      set((state) => {
-        state.userInputValues[layer][rowIndex][colIndex] = newInputValue;
-      }),
-
-    resetUserHistory: () =>
-      set(() => ({
+  persist(
+    immer(
+      (set) => ({
         ...initialState,
-      })),
-  }))
+
+        setUserInputValues: (userInputValues) =>
+          set(() => ({
+            userInputValues: userInputValues,
+          })),
+
+        updateUserInputValue: (layer, rowIndex, colIndex, newInputValue) =>
+          set((state) => {
+            state.userInputValues[layer][rowIndex][colIndex] = newInputValue;
+          }),
+
+        resetUserHistory: () =>
+          set(() => ({
+            ...initialState,
+          })),
+      }),
+      { name: "user-storage" }
+    )
+  )
 );
 
 export default useUserStore;

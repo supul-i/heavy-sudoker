@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 const initialState = {
   answerSudoku: [],
@@ -8,42 +9,47 @@ const initialState = {
   viewMode: "threeDimensions",
 };
 
-const usePuzzleStore = create((set) => ({
-  ...initialState,
-
-  setAnswerSudoku: (newPuzzle) =>
-    set(() => ({
-      answerSudoku: newPuzzle,
-    })),
-
-  setEmptyCellPosition: (emptyCellPosition) =>
-    set(() => ({
-      emptyCellPosition: emptyCellPosition,
-    })),
-
-  setCurrentCell: (newCurrentCell) =>
-    set((state) => ({
-      currentCell: {
-        ...state.currentCell,
-        row: newCurrentCell.row,
-        col: newCurrentCell.col,
-      },
-    })),
-
-  setCurrentLayer: (newLayer) =>
-    set(() => ({
-      currentLayer: newLayer,
-    })),
-
-  setViewMode: () =>
-    set((state) => ({
-      viewMode: state.viewMode === "threeDimensions" ? "twoDimensions" : "threeDimensions",
-    })),
-
-  resetPuzzle: () =>
-    set(() => ({
+const usePuzzleStore = create(
+  persist(
+    (set) => ({
       ...initialState,
-    })),
-}));
+
+      setAnswerSudoku: (newPuzzle) =>
+        set(() => ({
+          answerSudoku: newPuzzle,
+        })),
+
+      setEmptyCellPosition: (emptyCellPosition) =>
+        set(() => ({
+          emptyCellPosition: emptyCellPosition,
+        })),
+
+      setCurrentCell: (newCurrentCell) =>
+        set((state) => ({
+          currentCell: {
+            ...state.currentCell,
+            row: newCurrentCell.row,
+            col: newCurrentCell.col,
+          },
+        })),
+
+      setCurrentLayer: (newLayer) =>
+        set(() => ({
+          currentLayer: newLayer,
+        })),
+
+      setViewMode: () =>
+        set((state) => ({
+          viewMode: state.viewMode === "threeDimensions" ? "twoDimensions" : "threeDimensions",
+        })),
+
+      resetPuzzle: () =>
+        set(() => ({
+          ...initialState,
+        })),
+    }),
+    { name: "puzzle-storage" }
+  )
+);
 
 export default usePuzzleStore;
