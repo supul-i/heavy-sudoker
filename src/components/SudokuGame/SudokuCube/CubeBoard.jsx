@@ -1,6 +1,8 @@
 import { Canvas } from "@react-three/fiber";
 import PropTypes from "prop-types";
+import { Suspense } from "react";
 import { PUZZLE_SIZE } from "../../../constants/puzzle";
+import Loading from "../../../shared/components/LoadingDots";
 import CubeGroup from "./CubeGroup";
 import CubeOrbitControls from "./CubeOrbitControls";
 
@@ -13,7 +15,7 @@ function CubeBoard({ getCubeBoard, isLayerView }) {
   }));
 
   return (
-    <div className="h-screen w-[1200px]">
+    <Suspense fallback={<Loading />}>
       <Canvas
         camera={{
           fov: 60,
@@ -27,7 +29,7 @@ function CubeBoard({ getCubeBoard, isLayerView }) {
           <CubeGroup key={group.xPosition} group={group} isLayerView={isLayerView} />
         ))}
       </Canvas>
-    </div>
+    </Suspense>
   );
 }
 
