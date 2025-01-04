@@ -18,7 +18,7 @@ function Cell({ rowIndex, colIndex, fixedNumber, isEmpty, isSelected, userInputV
     <>
       {isEmpty ? (
         <div
-          className={`cell ${isSelected ? "bg-lime-100 ring ring-inset ring-lime-200" : "bg-white"}`}
+          className={`cell cursor-pointer focus:outline-none ${isSelected ? "bg-lime-100 ring ring-inset ring-lime-200" : "bg-white"}`}
           ref={cell}
           tabIndex={0}
           onClick={handleCells}

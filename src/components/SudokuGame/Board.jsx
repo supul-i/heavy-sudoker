@@ -28,7 +28,7 @@ function Board({ sudokuMap, positionOfEmptyCell }) {
   };
 
   return (
-    <div className="grid h-[600px] w-[600px] grid-cols-9 grid-rows-9 gap-x-[2px] gap-y-[2px] bg-black p-2 text-center font-Pretendard font-semibold">
+    <div className="mb-10 grid h-[600px] w-[600px] grid-cols-9 grid-rows-9 gap-x-[2px] gap-y-[2px] bg-black p-2 text-center font-Pretendard font-semibold">
       {sudokuMap.map((numbersOfRow, rowIndex) => {
         return numbersOfRow.map((number, colIndex) => {
           return (

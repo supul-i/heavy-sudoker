@@ -62,7 +62,7 @@ function CubeCell({ position, number, isEmpty, userInputValue }) {
           [0, 0, -1],
           [0, 1, -1],
         ]}
-        color="green"
+        color="gray"
         lineWidth={1}
         segments
         dashed={false}
@@ -74,7 +74,7 @@ function CubeCell({ position, number, isEmpty, userInputValue }) {
             color={isHovered ? "red" : "blue"}
             anchorX="center"
             anchorY="middle"
-            fontWeight={900}
+            fontWeight={600}
           >
             {userInputValue}
           </Text>
@@ -84,7 +84,7 @@ function CubeCell({ position, number, isEmpty, userInputValue }) {
           color={isHovered ? "red" : "black"}
           anchorX="center"
           anchorY="middle"
-          fontWeight={900}
+          fontWeight={600}
         >
           {isEmpty ? null : number}
         </Text>
