@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import OutlineButton from "../../shared/components/OutlineButton";
 import usePuzzleStore from "../../store/usePuzzleStore";
 import useUserStore from "../../store/useUserStore";
 import Board from "../SudokuGame/Board";
@@ -7,14 +8,14 @@ import CubeBoard from "./SudokuCube/CubeBoard";
 import CubeCell from "./SudokuCube/CubeCell";
 
 function SudokuPuzzles() {
-  const viewMode = usePuzzleStore((state) => state.viewMode);
+  const [viewMode, setViewMode] = useState("threeDimensions");
+  const [isLayerView, setIsLayerView] = useState(false);
+  const [sudokuMap, setSudokuMap] = useState([]);
+  const [positionOfEmptyCell, setPositionOfEmptyCell] = useState([]);
   const answerSudoku = usePuzzleStore((state) => state.answerSudoku);
   const emptyCellPosition = usePuzzleStore((state) => state.emptyCellPosition);
   const currentLayer = usePuzzleStore((state) => state.currentLayer);
   const userInputValues = useUserStore((state) => state.userInputValues);
-  const [sudokuMap, setSudokuMap] = useState([]);
-  const [positionOfEmptyCell, setPositionOfEmptyCell] = useState([]);
-  const [isLayerView, setIsLayerView] = useState(false);
 
   useEffect(() => {
     setSudokuMap(answerSudoku[8 - currentLayer]);
@@ -23,6 +24,14 @@ function SudokuPuzzles() {
 
   const handleLayerView = () => {
     setIsLayerView(!isLayerView);
+  };
+
+  const handleViewMode = () => {
+    if (viewMode === "threeDimensions") {
+      setViewMode("twoDimensions");
+    } else {
+      setViewMode("threeDimensions");
+    }
   };
 
   const getCubeBoard = () => {
@@ -51,16 +60,28 @@ function SudokuPuzzles() {
   };
 
   return (
-    <div className="grid h-screen place-items-center dark:bg-black">
-      <div className="grid grid-cols-2 place-items-center">
+    <>
+      <div className="grid h-screen place-items-center dark:bg-black">
         {viewMode === "threeDimensions" ? (
-          <CubeBoard getCubeBoard={getCubeBoard} isLayerView={isLayerView} />
+          <div className="grid h-screen w-screen place-items-center">
+            <CubeBoard getCubeBoard={getCubeBoard} isLayerView={isLayerView} />
+          </div>
         ) : (
-          <Board sudokuMap={sudokuMap} positionOfEmptyCell={positionOfEmptyCell} />
+          <div className="grid grid-cols-2 place-items-center">
+            <Board sudokuMap={sudokuMap} positionOfEmptyCell={positionOfEmptyCell} />
+            <NumericKeypad />
+          </div>
         )}
-        <NumericKeypad handleLayerView={handleLayerView} />
       </div>
-    </div>
+      <div className="fixed bottom-3 left-1/2 box-content flex h-14 -translate-x-1/2 gap-3 rounded-md bg-gray-200 p-2.5 px-5">
+        <OutlineButton text="뷰 전환" onClick={handleViewMode} size="S" />
+        <OutlineButton
+          text={isLayerView ? "되돌리기" : "펼쳐보기"}
+          onClick={handleLayerView}
+          size="S"
+        />
+      </div>
+    </>
   );
 }
 
