@@ -34,11 +34,6 @@ function Home() {
     navigate("/sudoku");
   };
 
-  useEffect(() => {
-    resetPuzzle();
-    resetUserHistory();
-  }, [resetPuzzle, resetUserHistory]);
-
   return (
     <div className="h-screen px-4 dark:bg-black">
       <div className="relative flex items-center justify-between pt-6 text-sm font-semibold leading-6 text-slate-700 lg:pt-8 dark:text-slate-200"></div>
