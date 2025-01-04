@@ -6,7 +6,6 @@ const initialState = {
   emptyCellPosition: Array.from({ length: 9 }, () => []),
   currentCell: { row: 0, col: 0 },
   currentLayer: 8,
-  viewMode: "threeDimensions",
 };
 
 const usePuzzleStore = create(
@@ -36,11 +35,6 @@ const usePuzzleStore = create(
       setCurrentLayer: (newLayer) =>
         set(() => ({
           currentLayer: newLayer,
-        })),
-
-      setViewMode: () =>
-        set((state) => ({
-          viewMode: state.viewMode === "threeDimensions" ? "twoDimensions" : "threeDimensions",
         })),
 
       resetPuzzle: () =>
