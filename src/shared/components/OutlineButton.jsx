@@ -1,9 +1,15 @@
 import PropTypes from "prop-types";
 
-function OutlineButton({ onClick = () => {}, text }) {
+const OUTLINE_BUTTON_SIZE = {
+  S: "rounded-b-xl px-5 py-1.5 text-xl",
+  M: "rounded-b-2xl px-6 py-2.5 text-2xl",
+  L: "rounded-b-2xl px-7 py-3.5 text-3xl",
+};
+
+function OutlineButton({ text, onClick, size = "L" }) {
   return (
     <button
-      className="rounded-xl rounded-b-2xl border border-x-4 border-b-8 border-t-4 border-black px-7 py-3.5 text-3xl font-extrabold dark:border-white dark:text-white"
+      className={`${OUTLINE_BUTTON_SIZE[size]} rounded-xl rounded-b-2xl border border-x-4 border-b-8 border-t-4 border-black bg-white font-extrabold dark:border-white dark:text-white`}
       onClick={onClick}
     >
       {text}
@@ -12,8 +18,9 @@ function OutlineButton({ onClick = () => {}, text }) {
 }
 
 OutlineButton.propTypes = {
-  onClick: PropTypes.func,
   text: PropTypes.string.isRequired,
+  onClick: PropTypes.func,
+  size: PropTypes.string,
 };
 
 export default OutlineButton;
