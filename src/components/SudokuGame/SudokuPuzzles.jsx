@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import OutlineButton from "../../shared/components/OutlineButton";
 import usePuzzleStore from "../../store/usePuzzleStore";
 import useUserStore from "../../store/useUserStore";
@@ -12,6 +13,7 @@ function SudokuPuzzles() {
   const [isLayerView, setIsLayerView] = useState(false);
   const [sudokuMap, setSudokuMap] = useState([]);
   const [positionOfEmptyCell, setPositionOfEmptyCell] = useState([]);
+  const navigate = useNavigate();
   const answerSudoku = usePuzzleStore((state) => state.answerSudoku);
   const emptyCellPosition = usePuzzleStore((state) => state.emptyCellPosition);
   const currentLayer = usePuzzleStore((state) => state.currentLayer);
@@ -32,6 +34,10 @@ function SudokuPuzzles() {
     } else {
       setViewMode("threeDimensions");
     }
+  };
+
+  const handleGoHomePage = () => {
+    navigate("/");
   };
 
   const getCubeBoard = () => {
@@ -74,7 +80,12 @@ function SudokuPuzzles() {
         )}
       </div>
       <div className="fixed bottom-3 left-1/2 box-content flex h-14 -translate-x-1/2 gap-3 rounded-md bg-gray-200 p-2.5 px-5">
-        <OutlineButton text="뷰 전환" onClick={handleViewMode} size="S" />
+        <OutlineButton text="홈" onClick={handleGoHomePage} size="S" />
+        <OutlineButton
+          text={viewMode === "threeDimensions" ? "문제 풀기" : "뷰 전환"}
+          onClick={handleViewMode}
+          size="S"
+        />
         <OutlineButton
           text={isLayerView ? "되돌리기" : "펼쳐보기"}
           onClick={handleLayerView}
