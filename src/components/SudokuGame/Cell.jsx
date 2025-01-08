@@ -10,6 +10,7 @@ function Cell({
   isSelected,
   userInputValue,
   isIncorrect,
+  handleSelectedNumber,
 }) {
   const cell = useRef();
   const setCurrentCell = usePuzzleStore((state) => state.setCurrentCell);
@@ -22,6 +23,12 @@ function Cell({
     setCurrentCell({ row: rowIndex, col: colIndex });
   };
 
+  const handleKeyBoard = (e) => {
+    if (Number(e.key) > 0 && Number(e.key) < 9) {
+      handleSelectedNumber(Number(e.key));
+    }
+  };
+
   return (
     <>
       {isEmpty ? (
@@ -30,6 +37,7 @@ function Cell({
           ref={cell}
           tabIndex={0}
           onClick={handleCells}
+          onKeyDown={handleKeyBoard}
         >
           {userInputValue}
         </div>
@@ -48,6 +56,7 @@ Cell.propTypes = {
   isSelected: PropTypes.bool.isRequired,
   userInputValue: PropTypes.number,
   isIncorrect: PropTypes.bool.isRequired,
+  handleSelectedNumber: PropTypes.func.isRequired,
 };
 
 export default Cell;

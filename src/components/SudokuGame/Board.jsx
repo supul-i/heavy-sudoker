@@ -9,8 +9,9 @@ function Board({ sudokuMap, positionOfEmptyCell }) {
   const setCurrentCell = usePuzzleStore((state) => state.setCurrentCell);
   const currentCell = usePuzzleStore((state) => state.currentCell);
   const currentLayer = usePuzzleStore((state) => state.currentLayer);
-  const userInputValues = useUserStore((state) => state.userInputValues);
   const setBoardsCompleted = usePuzzleStore((state) => state.setBoardsCompleted);
+  const userInputValues = useUserStore((state) => state.userInputValues);
+  const updateUserInputValue = useUserStore((state) => state.updateUserInputValue);
   const incorrectPosition = new Map();
   let sudokuPuzzle = useMemo(() => [], []);
 
@@ -103,6 +104,10 @@ function Board({ sudokuMap, positionOfEmptyCell }) {
     return false;
   };
 
+  const handleSelectedNumber = (number) => {
+    updateUserInputValue(8 - currentLayer, currentCell.row, currentCell.col, number);
+  };
+
   return (
     <div className="mb-10 grid h-[600px] w-[600px] grid-cols-9 grid-rows-9 gap-x-[2px] gap-y-[2px] bg-black p-2 text-center font-Pretendard font-semibold">
       {sudokuMap.map((numbersOfRow, rowIndex) => {
@@ -121,6 +126,7 @@ function Board({ sudokuMap, positionOfEmptyCell }) {
                 colIndex,
                 userInputValues[8 - currentLayer][rowIndex][colIndex]
               )}
+              handleSelectedNumber={handleSelectedNumber}
             />
           );
         });
