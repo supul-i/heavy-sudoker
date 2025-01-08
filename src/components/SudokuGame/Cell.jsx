@@ -2,7 +2,15 @@ import PropTypes from "prop-types";
 import { useEffect, useRef } from "react";
 import usePuzzleStore from "../../store/usePuzzleStore";
 
-function Cell({ rowIndex, colIndex, fixedNumber, isEmpty, isSelected, userInputValue }) {
+function Cell({
+  rowIndex,
+  colIndex,
+  fixedNumber,
+  isEmpty,
+  isSelected,
+  userInputValue,
+  isIncorrect,
+}) {
   const cell = useRef();
   const setCurrentCell = usePuzzleStore((state) => state.setCurrentCell);
 
@@ -18,7 +26,7 @@ function Cell({ rowIndex, colIndex, fixedNumber, isEmpty, isSelected, userInputV
     <>
       {isEmpty ? (
         <div
-          className={`cell cursor-pointer focus:outline-none ${isSelected ? "bg-lime-100 ring ring-inset ring-lime-200" : "bg-white"}`}
+          className={`cell cursor-pointer focus:outline-none ${isSelected && isIncorrect ? "bg-lime-100 text-red-500 ring ring-inset ring-lime-200" : isIncorrect ? "bg-red-100 text-red-500 hover:text-red-600" : isSelected ? "bg-lime-100" : "bg-white"} hover:bg-lime-200`}
           ref={cell}
           tabIndex={0}
           onClick={handleCells}
@@ -26,7 +34,7 @@ function Cell({ rowIndex, colIndex, fixedNumber, isEmpty, isSelected, userInputV
           {userInputValue}
         </div>
       ) : (
-        <div className="cell bg-gray-200">{fixedNumber}</div>
+        <div className={`cell bg-gray-200 ${isIncorrect && "text-red-500"}`}>{fixedNumber}</div>
       )}
     </>
   );
@@ -39,6 +47,7 @@ Cell.propTypes = {
   isEmpty: PropTypes.bool.isRequired,
   isSelected: PropTypes.bool.isRequired,
   userInputValue: PropTypes.number,
+  isIncorrect: PropTypes.bool.isRequired,
 };
 
 export default Cell;

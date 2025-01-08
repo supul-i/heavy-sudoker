@@ -102,4 +102,4 @@ const setSudoku = () => {
 };
 
 export default setSudoku;
-export { getRandomNum };
+export { getRandomNum, isValid };
