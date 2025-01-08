@@ -27,7 +27,7 @@ function NumericKeypad() {
         {numbersOfPad.map((number) => (
           <div
             key={number}
-            className="h-16 w-16 cursor-pointer rounded-md border py-3 font-Pretendard text-3xl font-extrabold"
+            className="h-16 w-16 cursor-pointer rounded-md border py-3 font-Pretendard text-3xl font-extrabold hover:bg-cyan-200"
             onClick={() => handleSelectedNumber(number)}
           >
             {number}
