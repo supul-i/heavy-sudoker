@@ -10,6 +10,7 @@ function Board({ sudokuMap, positionOfEmptyCell }) {
   const currentCell = usePuzzleStore((state) => state.currentCell);
   const currentLayer = usePuzzleStore((state) => state.currentLayer);
   const userInputValues = useUserStore((state) => state.userInputValues);
+  const setBoardsCompleted = usePuzzleStore((state) => state.setBoardsCompleted);
   const incorrectPosition = new Map();
   let sudokuPuzzle = useMemo(() => [], []);
 
@@ -82,6 +83,18 @@ function Board({ sudokuMap, positionOfEmptyCell }) {
 
     return isIncorrect;
   };
+
+  useEffect(() => {
+    const checkCompletedBoard = () => {
+      const allCellsFilled = sudokuPuzzle.every((row) => row.every((cell) => cell !== 0));
+
+      return allCellsFilled && incorrectPosition.size === 0;
+    };
+
+    if (checkCompletedBoard()) {
+      setBoardsCompleted(currentLayer);
+    }
+  }, [currentLayer, incorrectPosition.size, setBoardsCompleted, sudokuPuzzle]);
 
   const isSelected = (rowIndex, colIndex) => {
     if (currentCell.row === rowIndex && currentCell.col === colIndex) {

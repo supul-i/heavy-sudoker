@@ -6,6 +6,7 @@ const initialState = {
   emptyCellPosition: Array.from({ length: 9 }, () => []),
   currentCell: { row: 0, col: 0 },
   currentLayer: 8,
+  completedBoards: Array.from({ length: 9 }, () => false),
 };
 
 const usePuzzleStore = create(
@@ -36,6 +37,13 @@ const usePuzzleStore = create(
         set(() => ({
           currentLayer: newLayer,
         })),
+
+      setBoardsCompleted: (boardLayer) =>
+        set((state) => {
+          const newCompletedBoards = [...state.completedBoards];
+          newCompletedBoards[boardLayer] = true;
+          return { completedBoards: newCompletedBoards };
+        }),
 
       resetPuzzle: () =>
         set(() => ({
