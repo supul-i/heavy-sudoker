@@ -81,16 +81,16 @@ function SudokuPuzzles() {
       </div>
       <div className="fixed bottom-3 left-1/2 box-content flex h-14 -translate-x-1/2 gap-3 rounded-md bg-gray-200 p-2.5 px-5">
         <OutlineButton text="홈" onClick={handleGoHomePage} size="S" />
-        <OutlineButton
-          text={viewMode === "threeDimensions" ? "문제 풀기" : "뷰 전환"}
-          onClick={handleViewMode}
-          size="S"
-        />
-        <OutlineButton
-          text={isLayerView ? "되돌리기" : "펼쳐보기"}
-          onClick={handleLayerView}
-          size="S"
-        />
+        {viewMode === "threeDimensions" && isLayerView ? (
+          <>
+            <OutlineButton text={"되돌리기"} onClick={handleLayerView} size="S" />
+            <OutlineButton text={"문제 풀기"} onClick={handleViewMode} size="S" />
+          </>
+        ) : viewMode === "threeDimensions" ? (
+          <OutlineButton text={"펼쳐보기"} onClick={handleLayerView} size="S" />
+        ) : (
+          <OutlineButton text={"전체 보기"} onClick={handleViewMode} size="S" />
+        )}
       </div>
     </>
   );
