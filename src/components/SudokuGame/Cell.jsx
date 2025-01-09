@@ -42,7 +42,9 @@ function Cell({
           {userInputValue}
         </div>
       ) : (
-        <div className={`cell bg-gray-200 ${isIncorrect && "text-red-500"}`}>{fixedNumber}</div>
+        <div className={`cell pointer-events-none bg-gray-200 ${isIncorrect && "text-red-500"}`}>
+          {fixedNumber}
+        </div>
       )}
     </>
   );
