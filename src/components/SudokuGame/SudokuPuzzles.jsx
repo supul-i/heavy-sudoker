@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import OutlineButton from "../../shared/components/OutlineButton";
 import usePuzzleStore from "../../store/usePuzzleStore";
@@ -24,23 +24,7 @@ function SudokuPuzzles() {
     setPositionOfEmptyCell(emptyCellPosition[8 - currentLayer]);
   }, [answerSudoku, emptyCellPosition, currentLayer]);
 
-  const handleLayerView = () => {
-    setIsLayerView(!isLayerView);
-  };
-
-  const handleViewMode = () => {
-    if (viewMode === "threeDimensions") {
-      setViewMode("twoDimensions");
-    } else {
-      setViewMode("threeDimensions");
-    }
-  };
-
-  const handleGoHomePage = () => {
-    navigate("/");
-  };
-
-  const getCubeBoard = () => {
+  const getCubeBoard = useCallback(() => {
     const isEmpty = (layer, rowIndex, colIndex) => {
       return emptyCellPosition[layer][rowIndex].includes(colIndex);
     };
@@ -63,6 +47,22 @@ function SudokuPuzzles() {
     }
 
     return cubeBoard;
+  }, [answerSudoku, emptyCellPosition, userInputValues]);
+
+  const handleLayerView = () => {
+    setIsLayerView(!isLayerView);
+  };
+
+  const handleViewMode = () => {
+    if (viewMode === "threeDimensions") {
+      setViewMode("twoDimensions");
+    } else {
+      setViewMode("threeDimensions");
+    }
+  };
+
+  const handleGoHomePage = () => {
+    navigate("/", { replace: true });
   };
 
   return (

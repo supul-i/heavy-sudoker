@@ -31,7 +31,7 @@ function Home() {
 
     setEmptyCellPosition(emptyCellPositions);
 
-    navigate("/sudoku");
+    navigate("/sudoku", { replace: true });
   };
 
   return (
