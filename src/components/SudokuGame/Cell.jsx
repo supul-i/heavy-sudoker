@@ -11,6 +11,7 @@ function Cell({
   userInputValue,
   isIncorrect,
   handleSelectedNumber,
+  isBackgroundCell,
 }) {
   const cell = useRef();
   const setCurrentCell = usePuzzleStore((state) => state.setCurrentCell);
@@ -33,7 +34,7 @@ function Cell({
     <>
       {isEmpty ? (
         <div
-          className={`cell cursor-pointer focus:outline-none ${isSelected && isIncorrect ? "bg-lime-100 text-red-500 ring ring-inset ring-lime-200" : isIncorrect ? "bg-red-100 text-red-500 hover:text-red-600" : isSelected ? "bg-lime-100" : "bg-white"} hover:bg-lime-200`}
+          className={`cell cursor-pointer focus:outline-none ${isSelected && isIncorrect ? "bg-cyan-200 text-red-500" : isIncorrect ? "bg-red-100 text-red-500 hover:text-red-600" : isSelected ? "bg-cyan-400" : isBackgroundCell ? "bg-lime-100" : "bg-white"} hover:bg-cyan-200`}
           ref={cell}
           tabIndex={0}
           onClick={handleCells}
@@ -42,7 +43,9 @@ function Cell({
           {userInputValue}
         </div>
       ) : (
-        <div className={`cell pointer-events-none bg-gray-200 ${isIncorrect && "text-red-500"}`}>
+        <div
+          className={`cell pointer-events-none ${isBackgroundCell ? "bg-lime-50" : "bg-gray-200"} ${isIncorrect && "text-red-500"}`}
+        >
           {fixedNumber}
         </div>
       )}
@@ -59,6 +62,7 @@ Cell.propTypes = {
   userInputValue: PropTypes.number,
   isIncorrect: PropTypes.bool.isRequired,
   handleSelectedNumber: PropTypes.func.isRequired,
+  isBackgroundCell: PropTypes.bool.isRequired,
 };
 
 export default Cell;

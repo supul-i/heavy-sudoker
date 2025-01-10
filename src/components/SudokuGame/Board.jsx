@@ -108,6 +108,20 @@ function Board({ sudokuMap, positionOfEmptyCell }) {
     updateUserInputValue(8 - currentLayer, currentCell.row, currentCell.col, number);
   };
 
+  const isBackgroundCell = (rowIndex, colIndex) => {
+    if (
+      currentCell.row === rowIndex ||
+      currentCell.col === colIndex ||
+      (currentCell.row - (currentCell.row % 3) === rowIndex - (rowIndex % 3) &&
+        currentCell.col - (currentCell.col % 3) === colIndex - (colIndex % 3))
+    ) {
+      return true;
+    }
+
+    return false;
+  };
+
+
   return (
     <div className="mb-10 grid h-[600px] w-[600px] grid-cols-9 grid-rows-9 gap-x-[2px] gap-y-[2px] bg-black p-2 text-center font-Pretendard font-semibold">
       {sudokuMap.map((numbersOfRow, rowIndex) => {
@@ -127,6 +141,7 @@ function Board({ sudokuMap, positionOfEmptyCell }) {
                 userInputValues[8 - currentLayer][rowIndex][colIndex]
               )}
               handleSelectedNumber={handleSelectedNumber}
+              isBackgroundCell={isBackgroundCell(rowIndex, colIndex)}
             />
           );
         });
