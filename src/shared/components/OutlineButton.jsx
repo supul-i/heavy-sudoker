@@ -9,7 +9,7 @@ const OUTLINE_BUTTON_SIZE = {
 function OutlineButton({ text, onClick, size = "L" }) {
   return (
     <button
-      className={`${OUTLINE_BUTTON_SIZE[size]} rounded-xl rounded-b-2xl border border-x-4 border-b-8 border-t-4 border-black bg-white font-extrabold dark:border-white dark:text-white`}
+      className={`${OUTLINE_BUTTON_SIZE[size]} trasition-all rounded-xl rounded-b-2xl border border-x-4 border-b-8 border-t-4 border-black bg-white font-extrabold hover:scale-110 active:scale-105 dark:border-white dark:text-white`}
       onClick={onClick}
     >
       {text}
