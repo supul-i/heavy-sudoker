@@ -1,5 +1,6 @@
 import usePuzzleStore from "../../store/usePuzzleStore";
 import useUserStore from "../../store/useUserStore";
+import { playClickKeyPadSound } from "../../utils/audio";
 
 function NumericKeypad() {
   const numbersOfPad = Array(9)
@@ -10,6 +11,7 @@ function NumericKeypad() {
   const updateUserInputValue = useUserStore((state) => state.updateUserInputValue);
 
   const handleSelectedNumber = (number) => {
+    playClickKeyPadSound();
     updateUserInputValue(8 - currentLayer, currentCell.row, currentCell.col, number);
   };
 

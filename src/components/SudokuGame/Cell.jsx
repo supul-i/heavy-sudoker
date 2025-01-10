@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import { useEffect, useRef } from "react";
 import usePuzzleStore from "../../store/usePuzzleStore";
+import { playClickKeyPadSound, playClickSound } from "../../utils/audio";
 
 function Cell({
   rowIndex,
@@ -21,11 +22,13 @@ function Cell({
   }, []);
 
   const handleCells = () => {
+    playClickSound();
     setCurrentCell({ row: rowIndex, col: colIndex });
   };
 
   const handleKeyBoard = (e) => {
-    if (Number(e.key) > 0 && Number(e.key) < 9) {
+    if (Number(e.key) > 0 && Number(e.key) < 10) {
+      playClickKeyPadSound();
       handleSelectedNumber(Number(e.key));
     }
   };
@@ -34,7 +37,17 @@ function Cell({
     <>
       {isEmpty ? (
         <div
-          className={`cell cursor-pointer focus:outline-none ${isSelected && isIncorrect ? "bg-cyan-200 text-red-500" : isIncorrect ? "bg-red-100 text-red-500 hover:text-red-600" : isSelected ? "bg-cyan-400" : isBackgroundCell ? "bg-lime-100" : "bg-white"} hover:bg-cyan-200`}
+          className={`cell cursor-pointer focus:outline-none ${
+            isSelected && isIncorrect
+              ? "bg-cyan-200 text-red-500"
+              : isIncorrect
+                ? "bg-red-200 text-red-500 hover:text-red-600"
+                : isSelected
+                  ? "bg-[#00FFFF]"
+                  : isBackgroundCell
+                    ? "bg-lime-100"
+                    : "bg-white"
+          } hover:bg-cyan-200`}
           ref={cell}
           tabIndex={0}
           onClick={handleCells}
@@ -44,7 +57,9 @@ function Cell({
         </div>
       ) : (
         <div
-          className={`cell pointer-events-none ${isBackgroundCell ? "bg-lime-50" : "bg-gray-200"} ${isIncorrect && "text-red-500"}`}
+          className={`cell pointer-events-none ${
+            isBackgroundCell ? "bg-lime-50" : "bg-gray-200"
+          } ${isIncorrect && "text-red-500"}`}
         >
           {fixedNumber}
         </div>
