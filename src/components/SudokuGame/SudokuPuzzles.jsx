@@ -7,6 +7,7 @@ import Board from "../SudokuGame/Board";
 import NumericKeypad from "../SudokuGame/NumericKeypad";
 import CubeBoard from "./SudokuCube/CubeBoard";
 import CubeCell from "./SudokuCube/CubeCell";
+import BackgroundSound from "../../shared/components/BackgroundSound";
 
 function SudokuPuzzles() {
   const [viewMode, setViewMode] = useState("threeDimensions");
@@ -81,6 +82,7 @@ function SudokuPuzzles() {
       </div>
       <div className="fixed bottom-3 left-1/2 box-content flex h-14 -translate-x-1/2 gap-3 rounded-md bg-gray-200 p-2.5 px-5">
         <OutlineButton text="홈" onClick={handleGoHomePage} size="S" />
+        <BackgroundSound />
         {viewMode === "threeDimensions" && isLayerView ? (
           <>
             <OutlineButton text={"되돌리기"} onClick={handleLayerView} size="S" />
