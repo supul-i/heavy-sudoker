@@ -69,12 +69,9 @@ const fillRemainCells = (sudoku, rowIndex, colIndex) => {
     return fillRemainCells(sudoku, rowIndex, colIndex + 1);
   }
 
-  let previousNum = 0;
   let validNumbers = Array.from({ length: 9 }, (_, i) => i + 1);
 
-  for (let numberOfAttempt = 9; numberOfAttempt > 0; numberOfAttempt--) {
-    validNumbers = validNumbers.filter((number) => number !== previousNum);
-
+  while (validNumbers.length > 0) {
     const randomIndex = getRandomNum(validNumbers.length);
     const randomNumber = validNumbers[randomIndex];
 
@@ -85,11 +82,10 @@ const fillRemainCells = (sudoku, rowIndex, colIndex) => {
         return true;
       }
 
-      previousNum = sudoku[rowIndex][colIndex];
       sudoku[rowIndex][colIndex] = 0;
-    } else {
-      validNumbers.splice(randomIndex, 1);
     }
+
+    validNumbers.splice(randomIndex, 1);
   }
 
   return false;
