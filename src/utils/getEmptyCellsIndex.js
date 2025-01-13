@@ -28,6 +28,39 @@ const getEmptyCellsIndex = (difficultyLevel) => {
     }
   }
 
+  const emptyLines = [];
+  const fullLines = [];
+
+  emptyCellPosition.forEach((emptyCells, index) => {
+    if (emptyCells.length === 0) {
+      emptyLines.push(index);
+    } else if (emptyCells.length > PUZZLE_SIZE / 2) {
+      fullLines.push(index);
+    }
+  });
+
+  if (emptyLines.length !== 0) {
+    emptyLines.forEach((emptyLine) => {
+      for (const fullLine of fullLines) {
+        if (emptyCellPosition[fullLine].length > PUZZLE_SIZE / 2) {
+          const deleteCount = Math.floor(emptyCellPosition[fullLine].length / 2);
+
+          emptyCellPosition[emptyLine].push(...emptyCellPosition[fullLine].splice(0, deleteCount));
+          return;
+        }
+      }
+
+      if (emptyCellPosition[emptyLine].length === 0) {
+        for (const fullLine of fullLines) {
+          if (emptyCellPosition[fullLine].length > 1) {
+            emptyCellPosition[emptyLine].push(...emptyCellPosition[fullLine].splice(0, 1));
+            return;
+          }
+        }
+      }
+    });
+  }
+
   return emptyCellPosition;
 };
 

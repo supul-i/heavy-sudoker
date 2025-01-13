@@ -89,9 +89,13 @@ function CubeCell({ position, number, isEmpty, userInputValue }) {
           {isEmpty ? null : number}
         </Text>
       </Billboard>
-      {isHighlighted && (
+      {isHighlighted ? (
         <Box args={[1, 1, 1]} position={[0.5, 0.5, -0.5]}>
           <meshBasicMaterial transparent={true} opacity={0.5} color={"#39FF14"} />
+        </Box>
+      ) : (
+        <Box args={[1, 1, 1]} position={[0.5, 0.5, -0.5]}>
+          <meshBasicMaterial transparent={true} opacity={0.2} />
         </Box>
       )}
     </group>

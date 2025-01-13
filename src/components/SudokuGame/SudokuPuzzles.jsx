@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import OutlineButton from "../../shared/components/OutlineButton";
 import usePuzzleStore from "../../store/usePuzzleStore";
 import useUserStore from "../../store/useUserStore";
@@ -6,12 +7,14 @@ import Board from "../SudokuGame/Board";
 import NumericKeypad from "../SudokuGame/NumericKeypad";
 import CubeBoard from "./SudokuCube/CubeBoard";
 import CubeCell from "./SudokuCube/CubeCell";
+import BackgroundSound from "../../shared/components/BackgroundSound";
 
 function SudokuPuzzles() {
   const [viewMode, setViewMode] = useState("threeDimensions");
   const [isLayerView, setIsLayerView] = useState(false);
   const [sudokuMap, setSudokuMap] = useState([]);
   const [positionOfEmptyCell, setPositionOfEmptyCell] = useState([]);
+  const navigate = useNavigate();
   const answerSudoku = usePuzzleStore((state) => state.answerSudoku);
   const emptyCellPosition = usePuzzleStore((state) => state.emptyCellPosition);
   const currentLayer = usePuzzleStore((state) => state.currentLayer);
@@ -22,19 +25,7 @@ function SudokuPuzzles() {
     setPositionOfEmptyCell(emptyCellPosition[8 - currentLayer]);
   }, [answerSudoku, emptyCellPosition, currentLayer]);
 
-  const handleLayerView = () => {
-    setIsLayerView(!isLayerView);
-  };
-
-  const handleViewMode = () => {
-    if (viewMode === "threeDimensions") {
-      setViewMode("twoDimensions");
-    } else {
-      setViewMode("threeDimensions");
-    }
-  };
-
-  const getCubeBoard = () => {
+  const getCubeBoard = useCallback(() => {
     const isEmpty = (layer, rowIndex, colIndex) => {
       return emptyCellPosition[layer][rowIndex].includes(colIndex);
     };
@@ -57,6 +48,22 @@ function SudokuPuzzles() {
     }
 
     return cubeBoard;
+  }, [answerSudoku, emptyCellPosition, userInputValues]);
+
+  const handleLayerView = () => {
+    setIsLayerView(!isLayerView);
+  };
+
+  const handleViewMode = () => {
+    if (viewMode === "threeDimensions") {
+      setViewMode("twoDimensions");
+    } else {
+      setViewMode("threeDimensions");
+    }
+  };
+
+  const handleGoHomePage = () => {
+    navigate("/", { replace: true });
   };
 
   return (
@@ -74,12 +81,18 @@ function SudokuPuzzles() {
         )}
       </div>
       <div className="fixed bottom-3 left-1/2 box-content flex h-14 -translate-x-1/2 gap-3 rounded-md bg-gray-200 p-2.5 px-5">
-        <OutlineButton text="뷰 전환" onClick={handleViewMode} size="S" />
-        <OutlineButton
-          text={isLayerView ? "되돌리기" : "펼쳐보기"}
-          onClick={handleLayerView}
-          size="S"
-        />
+        <OutlineButton text="홈" onClick={handleGoHomePage} size="S" />
+        <BackgroundSound />
+        {viewMode === "threeDimensions" && isLayerView ? (
+          <>
+            <OutlineButton text={"되돌리기"} onClick={handleLayerView} size="S" />
+            <OutlineButton text={"문제 풀기"} onClick={handleViewMode} size="S" />
+          </>
+        ) : viewMode === "threeDimensions" ? (
+          <OutlineButton text={"펼쳐보기"} onClick={handleLayerView} size="S" />
+        ) : (
+          <OutlineButton text={"전체 보기"} onClick={handleViewMode} size="S" />
+        )}
       </div>
     </>
   );
