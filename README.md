@@ -105,7 +105,7 @@
         </summary>
         <img width="500" alt="3D-View-Detail" src="src/assets/readme/3D-View-Detail.png">
       </details>
-      - <strong>문제 풀기</strong>: 펼쳐보기 후에 나타나는 버튼으로, 하이라이트 되어있는 부분의 스도쿠를 풀 수 있는 2D 보드로 전환됩니다.
+      - <strong>문제 풀기</strong>: 펼쳐보기 후에 나타나는 버튼으로, 하이라이트 되어있는 부분의<br> 스도쿠를 풀 수 있는 2D 보드로 전환됩니다.
     </td>
   </tr>
 </table>
@@ -118,7 +118,7 @@
   </tr>
   <tr>
     <td>
-      <img src="src/assets/readme/2D-View.png" alt="2D">
+      <img width="500" src="src/assets/readme/2D-View.png" alt="2D">
     </td>
   </tr>
   <tr>
