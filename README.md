@@ -105,7 +105,7 @@
         </summary>
         <img width="500" alt="3D-View-Detail" src="src/assets/readme/3D-View-Detail.png">
       </details>
-      - <strong>문제 풀기</strong>: 펼쳐보기 후에 나타나는 버튼으로, 하이라이트 되어있는 부분의<br> 스도쿠를 풀 수 있는 2D 보드로 전환됩니다.
+      - <strong>문제 풀기</strong>: 펼쳐보기 후에 나타나는 버튼으로, 하이라이트 되어있는<br> 부분의 스도쿠를 풀 수 있는 2D 보드로 전환됩니다.
     </td>
   </tr>
 </table>
@@ -244,7 +244,8 @@ let validNumbers = Array.from({ length: 9 }, (_, i) => i + 1);
    - 빈 줄이 있을 경우 꽉 찬 줄에서 빈 칸의 인덱스를 가져와 빈 줄에 추가한다.
 5. 최종 빈 칸 위치를 반환한다.
 
-https://github.com/supul-i/heavy-sudoker/blob/189d443f9fae3300a7cd4983fed9915de147b59b/src/utils/getEmptyCellsIndex.js#L42C1-L54C44
+
+https://github.com/supul-i/heavy-sudoker/blob/c6aa51b75c3dd4b67cb297b46316e220047705c4/src/utils/getEmptyCellsIndex.js#L31C2-L42C33
 
 
 <br>
