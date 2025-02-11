@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { useEffect, useMemo } from "react";
+import { useCallback, useEffect, useState } from "react";
 import usePuzzleStore from "../../store/usePuzzleStore";
 import useUserStore from "../../store/useUserStore";
 import { isValid } from "../../utils/setSudoku";
@@ -12,8 +12,6 @@ function Board({ sudokuMap, positionOfEmptyCell }) {
   const setBoardsCompleted = usePuzzleStore((state) => state.setBoardsCompleted);
   const userInputValues = useUserStore((state) => state.userInputValues);
   const updateUserInputValue = useUserStore((state) => state.updateUserInputValue);
-  const incorrectPosition = new Map();
-  let sudokuPuzzle = useMemo(() => [], []);
 
   useEffect(() => {
     const defaultSelectedCell = Math.min(...positionOfEmptyCell[0]);
@@ -25,8 +23,9 @@ function Board({ sudokuMap, positionOfEmptyCell }) {
     return positionOfEmptyCell[rowIndex].includes(colIndex);
   };
 
-  const CheckUserInput = () => {
-    sudokuPuzzle = sudokuMap.map((answers, rowIndex) => {
+  const CheckUserInput = useCallback(() => {
+    const incorrectPosition = new Map();
+    let sudokuPuzzle = sudokuMap.map((answers, rowIndex) => {
       return answers.map((value, colIndex) => {
         if (isEmpty(rowIndex, colIndex)) {
           if (userInputValues[8 - currentLayer][rowIndex][colIndex]) {
@@ -57,7 +56,22 @@ function Board({ sudokuMap, positionOfEmptyCell }) {
     });
 
     return { incorrectPosition, sudokuPuzzle };
+  }, [sudokuMap, positionOfEmptyCell, userInputValues, currentLayer]);
+
+  const checkCompletedBoard = () => {
+    const { incorrectPosition, sudokuPuzzle } = CheckUserInput();
+    const allCellsFilled = sudokuPuzzle.every((row) => row.every((cell) => cell !== 0));
+
+    return allCellsFilled && incorrectPosition.size === 0;
   };
+
+  useEffect(() => {
+    const isCompleted = checkCompletedBoard();
+
+    if (isCompleted) {
+      setBoardsCompleted(currentLayer);
+    }
+  }, [currentLayer, userInputValues, sudokuMap, positionOfEmptyCell, setBoardsCompleted]);
 
   const isIncorrect = (row, col, inputValue) => {
     const { incorrectPosition, sudokuPuzzle } = CheckUserInput();
@@ -85,18 +99,6 @@ function Board({ sudokuMap, positionOfEmptyCell }) {
     return isIncorrect;
   };
 
-  useEffect(() => {
-    const checkCompletedBoard = () => {
-      const allCellsFilled = sudokuPuzzle.every((row) => row.every((cell) => cell !== 0));
-
-      return allCellsFilled && incorrectPosition.size === 0;
-    };
-
-    if (checkCompletedBoard()) {
-      setBoardsCompleted(currentLayer);
-    }
-  }, [currentLayer, incorrectPosition.size, setBoardsCompleted, sudokuPuzzle]);
-
   const isSelected = (rowIndex, colIndex) => {
     if (currentCell.row === rowIndex && currentCell.col === colIndex) {
       return true;
@@ -120,7 +122,6 @@ function Board({ sudokuMap, positionOfEmptyCell }) {
 
     return false;
   };
-
 
   return (
     <div className="mb-10 grid h-[600px] w-[600px] grid-cols-9 grid-rows-9 gap-x-[2px] gap-y-[2px] bg-black p-2 text-center font-Pretendard font-semibold">
