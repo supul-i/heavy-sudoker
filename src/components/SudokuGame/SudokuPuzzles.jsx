@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import BackgroundSound from "../../shared/components/BackgroundSound";
+import Modal from "../../shared/components/Modal";
 import OutlineButton from "../../shared/components/OutlineButton";
 import usePuzzleStore from "../../store/usePuzzleStore";
 import useUserStore from "../../store/useUserStore";
@@ -7,23 +9,28 @@ import Board from "../SudokuGame/Board";
 import NumericKeypad from "../SudokuGame/NumericKeypad";
 import CubeBoard from "./SudokuCube/CubeBoard";
 import CubeCell from "./SudokuCube/CubeCell";
-import BackgroundSound from "../../shared/components/BackgroundSound";
 
 function SudokuPuzzles() {
   const [viewMode, setViewMode] = useState("threeDimensions");
   const [isLayerView, setIsLayerView] = useState(false);
   const [sudokuMap, setSudokuMap] = useState([]);
   const [positionOfEmptyCell, setPositionOfEmptyCell] = useState([]);
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const navigate = useNavigate();
   const answerSudoku = usePuzzleStore((state) => state.answerSudoku);
   const emptyCellPosition = usePuzzleStore((state) => state.emptyCellPosition);
   const currentLayer = usePuzzleStore((state) => state.currentLayer);
   const userInputValues = useUserStore((state) => state.userInputValues);
+  const completedBoards = usePuzzleStore((state) => state.completedBoards);
 
   useEffect(() => {
     setSudokuMap(answerSudoku[8 - currentLayer]);
     setPositionOfEmptyCell(emptyCellPosition[8 - currentLayer]);
-  }, [answerSudoku, emptyCellPosition, currentLayer]);
+
+    if (completedBoards[currentLayer]) {
+      setIsModalVisible(true);
+    }
+  }, [answerSudoku, emptyCellPosition, currentLayer, completedBoards]);
 
   const getCubeBoard = useCallback(() => {
     const isEmpty = (layer, rowIndex, colIndex) => {
@@ -77,6 +84,15 @@ function SudokuPuzzles() {
           <div className="grid grid-cols-2 place-items-center">
             <Board sudokuMap={sudokuMap} positionOfEmptyCell={positionOfEmptyCell} />
             <NumericKeypad />
+            <Modal
+              isOpen={isModalVisible}
+              closeModal={() => setIsModalVisible(false)}
+              handleGoCubeBoard={() => setViewMode("threeDimensions")}
+              numOfCompleted={completedBoards.reduce(
+                (count, value) => (value === true ? count + 1 : count),
+                0
+              )}
+            />
           </div>
         )}
       </div>
