@@ -7,9 +7,7 @@
 <p align="center">Heavy Sudoker는 3D 큐브 형태로 클래식 스도쿠 퍼즐을 즐길 수 있는 게임입니다.</p>
 
 <p align="center">
-  <a href="https://heavy-sudoker.site">Deployed website</a>
-  <span> | </span>
-  <a href="https://github.com/supul-i/heavy-sudoker">Frontend Repository</a>
+  <a href="https://heavy-sudoker.site">스도쿠 게임 시작</a>
 </p>
 
 <br>
@@ -35,18 +33,18 @@
 - [게임 규칙](#%EA%B2%8C%EC%9E%84-%EA%B7%9C%EC%B9%99)
 - [기능](#%EA%B8%B0%EB%8A%A5)
 - [개발 과정에서의 고민](#%EA%B0%9C%EB%B0%9C-%EA%B3%BC%EC%A0%95%EC%97%90%EC%84%9C%EC%9D%98-%EA%B3%A0%EB%AF%BC)
-  * [스도쿠 문제 생성: 백트래킹 적용](#%EC%8A%A4%EB%8F%84%EC%BF%A0-%EB%AC%B8%EC%A0%9C-%EC%83%9D%EC%84%B1-%EB%B0%B1%ED%8A%B8%EB%9E%98%ED%82%B9-%EC%A0%81%EC%9A%A9)
+  * [1. 스도쿠 문제 생성: 백트래킹 적용](#1-%EC%8A%A4%EB%8F%84%EC%BF%A0-%EB%AC%B8%EC%A0%9C-%EC%83%9D%EC%84%B1-%EB%B0%B1%ED%8A%B8%EB%9E%98%ED%82%B9-%EC%A0%81%EC%9A%A9)
     + [3D 스도쿠의 구조](#3d-%EC%8A%A4%EB%8F%84%EC%BF%A0%EC%9D%98-%EA%B5%AC%EC%A1%B0)
     + [문제 생성 구현](#%EB%AC%B8%EC%A0%9C-%EC%83%9D%EC%84%B1-%EA%B5%AC%ED%98%84)
-  * [단순하게 생성되는 스도쿠 숫자 배치 개선하기](#%EB%8B%A8%EC%88%9C%ED%95%98%EA%B2%8C-%EC%83%9D%EC%84%B1%EB%90%98%EB%8A%94-%EC%8A%A4%EB%8F%84%EC%BF%A0-%EC%88%AB%EC%9E%90-%EB%B0%B0%EC%B9%98-%EA%B0%9C%EC%84%A0%ED%95%98%EA%B8%B0)
-  * [스도쿠의 난이도 결정하기](#%EC%8A%A4%EB%8F%84%EC%BF%A0%EC%9D%98-%EB%82%9C%EC%9D%B4%EB%8F%84-%EA%B2%B0%EC%A0%95%ED%95%98%EA%B8%B0)
+  * [2. 단순하게 생성되는 스도쿠 숫자 배치 개선하기](#2-%EB%8B%A8%EC%88%9C%ED%95%98%EA%B2%8C-%EC%83%9D%EC%84%B1%EB%90%98%EB%8A%94-%EC%8A%A4%EB%8F%84%EC%BF%A0-%EC%88%AB%EC%9E%90-%EB%B0%B0%EC%B9%98-%EA%B0%9C%EC%84%A0%ED%95%98%EA%B8%B0)
+  * [3. 스도쿠의 난이도 결정하기](#3-%EC%8A%A4%EB%8F%84%EC%BF%A0%EC%9D%98-%EB%82%9C%EC%9D%B4%EB%8F%84-%EA%B2%B0%EC%A0%95%ED%95%98%EA%B8%B0)
     + [난이도에 따른 빈 칸 개수 설정](#%EB%82%9C%EC%9D%B4%EB%8F%84%EC%97%90-%EB%94%B0%EB%A5%B8-%EB%B9%88-%EC%B9%B8-%EA%B0%9C%EC%88%98-%EC%84%A4%EC%A0%95)
     + [초기 구현 시 발생한 문제: 불균형한 빈 칸 배치](#%EC%B4%88%EA%B8%B0-%EA%B5%AC%ED%98%84-%EC%8B%9C-%EB%B0%9C%EC%83%9D%ED%95%9C-%EB%AC%B8%EC%A0%9C-%EB%B6%88%EA%B7%A0%ED%98%95%ED%95%9C-%EB%B9%88-%EC%B9%B8-%EB%B0%B0%EC%B9%98)
     + [빈 칸 재분배 과정을 추가하여 균형 맞추기](#%EB%B9%88-%EC%B9%B8-%EC%9E%AC%EB%B6%84%EB%B0%B0-%EA%B3%BC%EC%A0%95%EC%9D%84-%EC%B6%94%EA%B0%80%ED%95%98%EC%97%AC-%EA%B7%A0%ED%98%95-%EB%A7%9E%EC%B6%94%EA%B8%B0)
-  * [3D 스도쿠의 사용성 개선](#3d-%EC%8A%A4%EB%8F%84%EC%BF%A0%EC%9D%98-%EC%82%AC%EC%9A%A9%EC%84%B1-%EA%B0%9C%EC%84%A0)
+  * [4. 3D 스도쿠의 사용성 개선](#4-3d-%EC%8A%A4%EB%8F%84%EC%BF%A0%EC%9D%98-%EC%82%AC%EC%9A%A9%EC%84%B1-%EA%B0%9C%EC%84%A0)
     + [시각적 복잡함과 불편한 조작](#%EC%8B%9C%EA%B0%81%EC%A0%81-%EB%B3%B5%EC%9E%A1%ED%95%A8%EA%B3%BC-%EB%B6%88%ED%8E%B8%ED%95%9C-%EC%A1%B0%EC%9E%91)
     + [펼쳐보기 애니메이션 구현](#%ED%8E%BC%EC%B3%90%EB%B3%B4%EA%B8%B0-%EC%95%A0%EB%8B%88%EB%A9%94%EC%9D%B4%EC%85%98-%EA%B5%AC%ED%98%84)
-  * [사용자 경험을 높이는 사운드 추가](#%EC%82%AC%EC%9A%A9%EC%9E%90-%EA%B2%BD%ED%97%98%EC%9D%84-%EB%86%92%EC%9D%B4%EB%8A%94-%EC%82%AC%EC%9A%B4%EB%93%9C-%EC%B6%94%EA%B0%80)
+  * [5. 사용자 경험을 높이는 사운드 추가](#5-%EC%82%AC%EC%9A%A9%EC%9E%90-%EA%B2%BD%ED%97%98%EC%9D%84-%EB%86%92%EC%9D%B4%EB%8A%94-%EC%82%AC%EC%9A%B4%EB%93%9C-%EC%B6%94%EA%B0%80)
     + [효과음](#%ED%9A%A8%EA%B3%BC%EC%9D%8C)
     + [배경 음악](#%EB%B0%B0%EA%B2%BD-%EC%9D%8C%EC%95%85)
 - [회고](#%ED%9A%8C%EA%B3%A0)
@@ -111,7 +109,7 @@
   <tr>
     <td>
       - 메인 페이지에서 난이도 선택 후 처음 보여지는 화면입니다.
-      <details>
+      <details open>
         <summary>
           <strong>펼쳐보기</strong>: 각각 분리된 9개의 스도쿠 보드를 파악할 수 있습니다.
         </summary>
@@ -147,7 +145,7 @@
 
 # 개발 과정에서의 고민
 
-## 스도쿠 문제 생성: 백트래킹 적용
+## 1. 스도쿠 문제 생성: 백트래킹 적용
 
 ### 3D 스도쿠의 구조
 3D 스도쿠는 9개의 독립적인 2D 스도쿠 퍼즐이 세로로 쌓여있는 형태입니다. 각 2D 평면은 9x9 크기이며 이 2D 스도쿠가 합쳐져 3D 스도쿠로 연결됩니다. 따라서 전체 스도쿠는 9x9x9의 구조를 가집니다.
@@ -166,12 +164,12 @@
 
 스도쿠 문제가 생성되는 흐름은 다음과 같습니다.
 
-1. 입력 가능한 숫자인 1 ~ 9가 속해있는 배열(available numbers)을 생성한다.
-2. 무작위로 available numbers의 값 중 하나의 숫자를 정한다.
-   - 모든 숫자를 적용해본 후 전부 해당되지 않으면 1칸 뒤로 되돌아간다.
-3. 해당 위치의 숫자가 규칙에 어긋나는지 확인한다.
-   - 규칙에 어긋난다면 available numbers의 구성에서 숫자를 삭제한다.
-   - 규칙에 적합하면 해당 셀에 숫자를 넣은 후 다음 칸으로 이동한다.
+1. **숫자 배열 생성**: 입력 가능한 숫자인 1 ~ 9가 속해있는 배열을 생성합니다.
+2. **무작위 숫자 선택**: 생성된 배열에서 하나의 숫자를 무작위로 선택하고 해당 셀에 넣습니다.
+3. **스도쿠 규칙 확인**: 숫자가 규칙에 어긋나는지 확인합니다.
+   - 규칙에 어긋난다면 1번의 배열에서 해당 숫자를 삭제합니다.
+   - 모든 숫자를 적용해본 후 전부 해당되지 않으면 이전 단계로 되돌아가 다시 시도합니다.
+   - 규칙에 적합하면 해당 셀에 숫자를 넣은 후 다음 칸으로 이동합니다.
 
 위 과정을 반복하여 81개의 셀을 모두 채워나가게 됩니다. 아래 예시를 보면 물음표가 있는 셀은 같은 가로줄을 봤을 땐 `9`밖에 해당되지 않지만 세로줄과 3x3영역에서 이미 `9`가 사용되었습니다. 이 경우 다시 이전 셀인 17번째 셀로 돌아가 다른 숫자를 시도하게 됩니다.
 
@@ -181,36 +179,9 @@
 
 다시 이전 단계로 되돌아갈 땐 해당 단계에서 실패한 숫자를 기억하고 다시 시도되지 않도록 제거했습니다.
 
-```js
-  const fillRemainCells = (sudoku, rowIndex, colIndex) => {
-  // ...생략
-
-  let validNumbers = Array.from({ length: 9 }, (_, i) => i + 1);
-
-  while (validNumbers.length > 0) {
-    const randomIndex = getRandomNum(validNumbers.length);
-    const randomNumber = validNumbers[randomIndex];
-
-    if (isValid(sudoku, rowIndex, colIndex, randomNumber)) {
-      sudoku[rowIndex][colIndex] = randomNumber;
-
-      if (fillRemainCells(sudoku, rowIndex, colIndex + 1)) {
-        return true;
-      }
-
-      sudoku[rowIndex][colIndex] = 0;
-    }
-
-    validNumbers.splice(randomIndex, 1); // 유효하지 않은 숫자는 후보 배열에서 제거
-  }
-
-  return false;
-};
-```
-
 <br>
 
-## 단순하게 생성되는 스도쿠 숫자 배치 개선하기
+## 2. 단순하게 생성되는 스도쿠 숫자 배치 개선하기
 
 스도쿠 문제 생성 후 가로 방향으로 이동하며 채워진 숫자를 살펴봤을 때 2, 3, 4, 5 또는 6, 7, 8, 9 처럼 순차적으로 숫자가 채워져있는 경우가 나타났습니다. 난이도가 쉬울수록 사용자가 풀이해야 하는 빈 칸이 적기 때문에 단조로운 답으로 스도쿠가 생성된다면 너무 쉽게 게임이 끝날 수 있다는 문제가 생겼습니다.
 
@@ -243,7 +214,7 @@ let validNumbers = Array.from({ length: 9 }, (_, i) => i + 1);
 
 <br>
 
-## 스도쿠의 난이도 결정하기
+## 3. 스도쿠의 난이도 결정하기
 
 ### 난이도에 따른 빈 칸 개수 설정
 이 프로젝트에서는 쉬움, 보통, 어려움 3단계로 난이도를 구분했고 쉬울수록 빈 칸의 개수를 적게하여 미리 채워져있는 숫자를 늘렸습니다.
@@ -274,7 +245,7 @@ https://github.com/supul-i/heavy-sudoker/blob/189d443f9fae3300a7cd4983fed9915de1
 
 <br>
 
-## 3D 스도쿠의 사용성 개선
+## 4. 3D 스도쿠의 사용성 개선
 
 3D 스도쿠는 9x9x9 큐브 형태로 되어있어 일반적인 2D 스도쿠보다 시각적으로 복잡하고 사용자가 현재 풀고있는 영역을 쉽게 파악하기 어려운 문제가 있었습니다.
 
@@ -351,7 +322,7 @@ return (
 
 <br>
 
-## 사용자 경험을 높이는 사운드 추가
+## 5. 사용자 경험을 높이는 사운드 추가
 
 게임에서의 효과음은 게임을 생동감있게 만들어 사용자의 몰입감을 높여주는 중요한 요소라고 생각되어 스도쿠 문제 풀이가 시작되거나 클릭이벤트가 발생할 때 브라우저에서 오디오를 재생하기 위해 사용되는 Audio 객체를 활용하여 효과음과 배경음악을 추가했습니다.
 
