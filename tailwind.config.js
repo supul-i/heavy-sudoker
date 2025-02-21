@@ -3,8 +3,6 @@ export default {
   theme: {
     extend: {},
     fontFamily: {
-      Jua: ["Jua"],
-      BagelFatOne: ["Bagel Fat One"],
       Pretendard: ["Pretendard"],
       tenada: ["Tenada"],
     },
