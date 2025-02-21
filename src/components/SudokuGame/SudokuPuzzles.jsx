@@ -96,7 +96,7 @@ function SudokuPuzzles() {
           </div>
         )}
       </div>
-      <div className="fixed bottom-3 left-1/2 box-content flex h-14 -translate-x-1/2 gap-3 rounded-md bg-gray-200 p-2.5 px-5">
+      <div className="fixed bottom-3 left-1/2 box-content flex h-14 -translate-x-1/2 gap-3 rounded-md bg-gray-200 p-2.5 px-5 dark:bg-stone-700">
         <OutlineButton text="홈" onClick={handleGoHomePage} size="S" />
         <BackgroundSound />
         {viewMode === "threeDimensions" && isLayerView ? (
