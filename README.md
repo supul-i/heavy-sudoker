@@ -36,22 +36,20 @@
   * [1. 스도쿠 문제 생성: 백트래킹 적용](#1-%EC%8A%A4%EB%8F%84%EC%BF%A0-%EB%AC%B8%EC%A0%9C-%EC%83%9D%EC%84%B1-%EB%B0%B1%ED%8A%B8%EB%9E%98%ED%82%B9-%EC%A0%81%EC%9A%A9)
     + [3D 스도쿠의 제약 조건과 구조적 특성 파악하기](#3d-%EC%8A%A4%EB%8F%84%EC%BF%A0%EC%9D%98-%EC%A0%9C%EC%95%BD-%EC%A1%B0%EA%B1%B4%EA%B3%BC-%EA%B5%AC%EC%A1%B0%EC%A0%81-%ED%8A%B9%EC%84%B1-%ED%8C%8C%EC%95%85%ED%95%98%EA%B8%B0)
     + [구현 과정: 백트래킹 알고리즘과 문제 해결을 위한 3D 스도쿠 구조 변경](#%EA%B5%AC%ED%98%84-%EA%B3%BC%EC%A0%95-%EB%B0%B1%ED%8A%B8%EB%9E%98%ED%82%B9-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98%EA%B3%BC-%EB%AC%B8%EC%A0%9C-%ED%95%B4%EA%B2%B0%EC%9D%84-%EC%9C%84%ED%95%9C-3d-%EC%8A%A4%EB%8F%84%EC%BF%A0-%EA%B5%AC%EC%A1%B0-%EB%B3%80%EA%B2%BD)
-      - [문제점: 3D 스도쿠 제약 조건 처리의 복잡성과 백트래킹 알고리즘의 성능 저하](#%EB%AC%B8%EC%A0%9C%EC%A0%90-3d-%EC%8A%A4%EB%8F%84%EC%BF%A0-%EC%A0%9C%EC%95%BD-%EC%A1%B0%EA%B1%B4-%EC%B2%98%EB%A6%AC%EC%9D%98-%EB%B3%B5%EC%9E%A1%EC%84%B1%EA%B3%BC-%EB%B0%B1%ED%8A%B8%EB%9E%98%ED%82%B9-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98%EC%9D%98-%EC%84%B1%EB%8A%A5-%EC%A0%80%ED%95%98)
-      - [해결 방안: 스도쿠 구조 변경](#%ED%95%B4%EA%B2%B0-%EB%B0%A9%EC%95%88-%EC%8A%A4%EB%8F%84%EC%BF%A0-%EA%B5%AC%EC%A1%B0-%EB%B3%80%EA%B2%BD)
-      - [스도쿠 규칙을 고려하여 구현하기](#%EC%8A%A4%EB%8F%84%EC%BF%A0-%EA%B7%9C%EC%B9%99%EC%9D%84-%EA%B3%A0%EB%A0%A4%ED%95%98%EC%97%AC-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0)
-      - [시간 복잡도와 공간 복잡도](#%EC%8B%9C%EA%B0%84-%EB%B3%B5%EC%9E%A1%EB%8F%84%EC%99%80-%EA%B3%B5%EA%B0%84-%EB%B3%B5%EC%9E%A1%EB%8F%84)
     + [개선할 점: 유효성 검사 로직의 최적화와 난이도 조정 방식 추가](#%EA%B0%9C%EC%84%A0%ED%95%A0-%EC%A0%90-%EC%9C%A0%ED%9A%A8%EC%84%B1-%EA%B2%80%EC%82%AC-%EB%A1%9C%EC%A7%81%EC%9D%98-%EC%B5%9C%EC%A0%81%ED%99%94%EC%99%80-%EB%82%9C%EC%9D%B4%EB%8F%84-%EC%A1%B0%EC%A0%95-%EB%B0%A9%EC%8B%9D-%EC%B6%94%EA%B0%80)
   * [2. 스도쿠의 난이도 결정하기](#2-%EC%8A%A4%EB%8F%84%EC%BF%A0%EC%9D%98-%EB%82%9C%EC%9D%B4%EB%8F%84-%EA%B2%B0%EC%A0%95%ED%95%98%EA%B8%B0)
     + [난이도에 따른 빈 칸 개수 설정](#%EB%82%9C%EC%9D%B4%EB%8F%84%EC%97%90-%EB%94%B0%EB%A5%B8-%EB%B9%88-%EC%B9%B8-%EA%B0%9C%EC%88%98-%EC%84%A4%EC%A0%95)
     + [초기 구현 시 발생한 문제: 불균형한 빈 칸 배치](#%EC%B4%88%EA%B8%B0-%EA%B5%AC%ED%98%84-%EC%8B%9C-%EB%B0%9C%EC%83%9D%ED%95%9C-%EB%AC%B8%EC%A0%9C-%EB%B6%88%EA%B7%A0%ED%98%95%ED%95%9C-%EB%B9%88-%EC%B9%B8-%EB%B0%B0%EC%B9%98)
-    + [빈 칸 재분배 과정을 추가하여 균형 맞추기](#%EB%B9%88-%EC%B9%B8-%EC%9E%AC%EB%B6%84%EB%B0%B0-%EA%B3%BC%EC%A0%95%EC%9D%84-%EC%B6%94%EA%B0%80%ED%95%98%EC%97%AC-%EA%B7%A0%ED%98%95-%EB%A7%9E%EC%B6%94%EA%B8%B0)
+    + [해결 방안: 빈 칸 재분배 과정을 추가하여 균형 맞추기](#%ED%95%B4%EA%B2%B0-%EB%B0%A9%EC%95%88-%EB%B9%88-%EC%B9%B8-%EC%9E%AC%EB%B6%84%EB%B0%B0-%EA%B3%BC%EC%A0%95%EC%9D%84-%EC%B6%94%EA%B0%80%ED%95%98%EC%97%AC-%EA%B7%A0%ED%98%95-%EB%A7%9E%EC%B6%94%EA%B8%B0)
   * [3. 사용자를 위한 3D 보드의 펼쳐지는 애니메이션 구현](#3-%EC%82%AC%EC%9A%A9%EC%9E%90%EB%A5%BC-%EC%9C%84%ED%95%9C-3d-%EB%B3%B4%EB%93%9C%EC%9D%98-%ED%8E%BC%EC%B3%90%EC%A7%80%EB%8A%94-%EC%95%A0%EB%8B%88%EB%A9%94%EC%9D%B4%EC%85%98-%EA%B5%AC%ED%98%84)
     + [문제점: 3D 스도쿠의 시각적 복잡함과 불편한 조작](#%EB%AC%B8%EC%A0%9C%EC%A0%90-3d-%EC%8A%A4%EB%8F%84%EC%BF%A0%EC%9D%98-%EC%8B%9C%EA%B0%81%EC%A0%81-%EB%B3%B5%EC%9E%A1%ED%95%A8%EA%B3%BC-%EB%B6%88%ED%8E%B8%ED%95%9C-%EC%A1%B0%EC%9E%91)
     + [해결 방안: 펼쳐보기 애니메이션 적용하기](#%ED%95%B4%EA%B2%B0-%EB%B0%A9%EC%95%88-%ED%8E%BC%EC%B3%90%EB%B3%B4%EA%B8%B0-%EC%95%A0%EB%8B%88%EB%A9%94%EC%9D%B4%EC%85%98-%EC%A0%81%EC%9A%A9%ED%95%98%EA%B8%B0)
-      - [애니메이션 기법 선정: React Spring 선택](#%EC%95%A0%EB%8B%88%EB%A9%94%EC%9D%B4%EC%85%98-%EA%B8%B0%EB%B2%95-%EC%84%A0%EC%A0%95-react-spring-%EC%84%A0%ED%83%9D)
-    + [구현 과정](#%EA%B5%AC%ED%98%84-%EA%B3%BC%EC%A0%95)
-      - [구현 결과](#%EA%B5%AC%ED%98%84-%EA%B2%B0%EA%B3%BC)
-  * [4. 생동감을 위한 사운드 추가](#4-%EC%83%9D%EB%8F%99%EA%B0%90%EC%9D%84-%EC%9C%84%ED%95%9C-%EC%82%AC%EC%9A%B4%EB%93%9C-%EC%B6%94%EA%B0%80)
+    + [구현 과정: useSpring 훅을 사용하여 애니메이션 구현](#%EA%B5%AC%ED%98%84-%EA%B3%BC%EC%A0%95-usespring-%ED%9B%85%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%98%EC%97%AC-%EC%95%A0%EB%8B%88%EB%A9%94%EC%9D%B4%EC%85%98-%EA%B5%AC%ED%98%84)
+  * [4. 일반적인 스도쿠를 3D로 구현하기](#4-%EC%9D%BC%EB%B0%98%EC%A0%81%EC%9D%B8-%EC%8A%A4%EB%8F%84%EC%BF%A0%EB%A5%BC-3d%EB%A1%9C-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0)
+    + [3D로 구현하기 위한 R3F(React Three Fiber) 선택](#3d%EB%A1%9C-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0-%EC%9C%84%ED%95%9C-r3freact-three-fiber-%EC%84%A0%ED%83%9D)
+    + [구현 과정: 스도쿠의 셀을 컴포넌트로 관리](#%EA%B5%AC%ED%98%84-%EA%B3%BC%EC%A0%95-%EC%8A%A4%EB%8F%84%EC%BF%A0%EC%9D%98-%EC%85%80%EC%9D%84-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8%EB%A1%9C-%EA%B4%80%EB%A6%AC)
+    + [개선할 점: 3D 스도쿠의 중심축 변경하기](#%EA%B0%9C%EC%84%A0%ED%95%A0-%EC%A0%90-3d-%EC%8A%A4%EB%8F%84%EC%BF%A0%EC%9D%98-%EC%A4%91%EC%8B%AC%EC%B6%95-%EB%B3%80%EA%B2%BD%ED%95%98%EA%B8%B0)
+  * [5. 생동감을 위한 사운드 추가](#5-%EC%83%9D%EB%8F%99%EA%B0%90%EC%9D%84-%EC%9C%84%ED%95%9C-%EC%82%AC%EC%9A%B4%EB%93%9C-%EC%B6%94%EA%B0%80)
     + [효과음](#%ED%9A%A8%EA%B3%BC%EC%9D%8C)
     + [배경 음악](#%EB%B0%B0%EA%B2%BD-%EC%9D%8C%EC%95%85)
 - [회고](#%ED%9A%8C%EA%B3%A0)
@@ -110,7 +108,7 @@
   </tr>
   <tr>
     <td>
-      <img width="500" src="src/assets/readme/3D-View.png" alt="3D">
+      <img width="500" src="src/assets/readme/3D-view.png" alt="3D">
     </td>
   </tr>
   <tr>
@@ -120,7 +118,7 @@
         <summary>
           <strong>펼쳐보기</strong>: 각각 분리된 9개의 스도쿠 보드를 파악할 수 있습니다.
         </summary>
-        <img width="500" alt="3D-view-detail" src="src/assets/readme/3D-View-Detail.png">
+        <img width="500" alt="3D-view-detail" src="src/assets/readme/3D-view-detail.png">
       </details>
       - <strong>문제 풀기</strong>: 펼쳐보기 후에 나타나는 버튼으로, 하이라이트 되어있는<br> 부분의 스도쿠를 풀 수 있는 2D 보드로 전환됩니다.<br>
       - 3D 스도쿠 보드에서는 마우스 좌클릭으로 보드 회전, 마우스 휠을<br> 통해 확대/축소를 할 수 있습니다.
@@ -136,7 +134,7 @@
   </tr>
   <tr>
     <td>
-      <img width="500" src="src/assets/readme/2D-View.png" alt="2D">
+      <img width="500" src="src/assets/readme/2D-view.png" alt="2D">
     </td>
   </tr>
   <tr>
@@ -243,7 +241,7 @@
   <img width="200" alt="diagonal-block" src="src/assets/readme/blank-error.png" />
 </p>
 
- ### 빈 칸 재분배 과정을 추가하여 균형 맞추기
+ ### 해결 방안: 빈 칸 재분배 과정을 추가하여 균형 맞추기
 각 가로줄을 확인하여 비어있는 칸을 기록하고 해당 줄에서 추가로 비워야 할 칸이 무엇인지 무작위로 정해지는 단계를 거친 후에 빈 칸 재분배 로직을 추가했습니다.
 모든 줄을 체크하여 완전히 비어있는 줄이라면 상대적으로 숫자가 많이 채워진 줄에서 일부를 가져와 추가했습니다. 모든 가로줄에서 최소한 1개의 빈 칸이 존재할 수 있도록 했습니다.
 
@@ -261,7 +259,7 @@ https://github.com/supul-i/heavy-sudoker/blob/189d443f9fae3300a7cd4983fed9915de1
 ## 3. 사용자를 위한 3D 보드의 펼쳐지는 애니메이션 구현
 
 <p align="center">
-  <img width="600" alt="3D-slide-animation" src="src/assets/readme/3D-View-Detail.gif">
+  <img width="600" alt="3D-slide-animation" src="src/assets/readme/3D-view-detail.gif">
   <br>
   펼쳐보기 애니메이션 동작
 </p>
@@ -280,9 +278,9 @@ https://github.com/supul-i/heavy-sudoker/blob/189d443f9fae3300a7cd4983fed9915de1
 
 | 기술 | 특징 | 장점 | 단점 |
 | --- | --- | --- | --- |
-| **React Three Fiber (R3F) - useFrame** | R3F에서 제공하는 훅으로 매 프레임마다 콜백을 호출하기 때문에 3D 씬에서 발생하는 애니메이션을 프레임 단위로 제어 가능 | - 프레임 단위로 애니메이션을 제어하여 부드러운 애니메이션 구현 가능<br>- 언마운트 시 자동 콜백 정리로 메모리 누수 방지 | - 빠른 실행으로 로그 기록 어려움<br>- 디버깅이 까다로움 |
-| **React Spring - useSpring** | 상태 변화에 따라 자동으로 애니메이션이 동작 | - 물리 기반 애니메이션 제공으로 자연스러운 동작 구현<br>- 상태 변화에 따라 자동으로 애니메이션 실행되어 동기화 용이 | - 매 프레임마다 동적으로 값을 변경하는 애니메이션에 적합하지 않음 |
-| **Tween.js** | 시작과 끝 값을 지정하면 다양한 easing 함수를 사용하여 애니메이션 구현 가능 | - 복잡한 상태 관리 없이 간단히 애니메이션 추가 가능<br>- 다양한 환경(DOM, Canvas, WebGL 등)에서 사용 가능<br> - 정교한 시간 조정과 상태 간의 연결을 할 때 유용 | - React와 직접 통합되지 않아 상태 기반 애니메이션 구현 시 추가 작업 필요하며 기능이 다른 기술에 비해 제한적임 |
+| **React Three Fiber (R3F) - useFrame** | R3F에서 제공하는 훅으로 <br>매 프레임마다 콜백을 호출하기 때문에 3D 씬에서 발생하는 애니메이션을 프레임 단위로 제어 가능 | - 프레임 단위로 애니메이션을 제어하여 부드러운 애니메이션 구현 가능<br><br>- 언마운트 시 자동 콜백 정리로 메모리 누수 방지 | - 빠른 실행으로 로그 기록이<br> 어려움<br><br>- 디버깅이 까다로움 |
+| **React Spring - useSpring** | 상태 변화에 따라 자동으로 애니메이션이 동작 | - 물리 기반 애니메이션 제공으로 자연스러운 동작 구현 가능<br><br>- 상태 변화에 따라 자동으로 애니메이션 실행되어 동기화 용이 | 매 프레임마다 동적으로 값을 변경하는 애니메이션에 적합하지 않음 |
+| **Tween.js** | 시작과 끝 값을 지정하면 다양한 easing 함수를 사용하여 애니메이션 구현 가능 | - 복잡한 상태 관리 없이 간단히 애니메이션 추가 가능<br><br>- 다양한 환경(DOM, Canvas, WebGL 등)에서 사용 가능<br><br> - 정교한 시간 조정과 상태 간의 연결을 할 때 유용 | React와 직접 통합되지 않아 상태 기반 애니메이션 구현 시 추가 작업 필요하며 기능이 다른 기술에 비해 제한적임 |
 
 물리 기반 애니메이션이므로 추가적인 조정 없이도 부드럽고 자연스러우며 React의 상태를 잘 활용할 수 있는 `React Spring`을 선택하게 되었습니다.
 
@@ -313,7 +311,7 @@ return (
 
 <br>
 
-### 구현 과정
+### 구현 과정: useSpring 훅을 사용하여 애니메이션 구현
 1. 펼쳐지기 버튼의 상태(`isLayerView`)와 이동 애니메이션을 적용할 3D 객체(group)을 props로 받아왔습니다.
 
 2. 3D 스도쿠 큐브의 각 그룹의 위치조정과 회전을 위해 React Spring의 `useSpring` 훅을 활용했습니다. 사용자가 선택한 층은 화면 중앙에 위치하고 나머지 층은 좌우로 이동하며 부드럽게 전환됩니다.
@@ -355,11 +353,122 @@ return (
 3D 스도쿠의 큐브를 각 판별로 분리하고 선택된 판을 화면 중앙에 고정시켰습니다. 나머지 판들은 좌우로 펼쳐져 사용자가 현재 풀고 있는 영역을 직관적으로 파악할 수 있도록 했습니다.<br>
 또한 다른 판으로 이동할 때 자연스러운 전환이 이루어지도록 애니메이션을 적용했습니다.
 
-시각적으로 복잡한 퍼즐 구조를 스도쿠 판 별로 분리하면서 가독성을 향상시켜 좀 더 쉽게 이해하고 이용할 수 있도록 개선되었습니다.
+시각적으로 복잡한 퍼즐 구조를 스도쿠 판 별로 분리하면서 가독성을 향상시켜 사용자가 좀 더 쉽게 이해하고 이용할 수 있도록 개선되었습니다.
 
 <br>
 
-## 4. 생동감을 위한 사운드 추가
+## 4. 일반적인 스도쿠를 3D로 구현하기
+### 3D로 구현하기 위한 R3F(React Three Fiber) 선택
+R3F는 React 환경에서 Three.js를 쉽고 편리하게 사용할 수 있도록 해주는 라이브러리입니다. Three.js를 React 컴포넌트 형태로 사용할 수 있어 3D 구현에 있어서 간편하게 쓸 수 있으며 React의 상태 관리와 훅 시스템을 활용할 수 있습니다.
+
+3D 객체를 React 컴포넌트처럼 관리하여 재사용하기 위해 R3F를 선택하게 되었습니다.
+
+### 구현 과정: 스도쿠의 셀을 컴포넌트로 관리
+스도쿠 보드를 구성하는 기본 단위인 셀을 하나의 컴포넌트로 구현했습니다(`cubeCell`). 각 셀은 들어가 있는 숫자, 위치 등 퍼즐 데이터를 가지고 있습니다. 스도쿠 큐브 구조를 가지기 위해 셀 컴포넌트의 key 속성에 위치값을 넣어 리액트가 각 셀을 고유하게 식별하도록 했습니다.
+
+다음으로는 `cubeCell` 컴포넌트를 x축을 기준으로 그룹화하여 `CubeBoard` 컴포넌트에서 렌더링하게 됩니다.
+```js
+const xValues = Array.from({ length: PUZZLE_SIZE }, (_, i) => i);
+const xAxisCubeGroups = xValues.map((xPosition) => ({
+  xPosition,
+  cubes: cubeMap.filter((cube) => cube.props.position[0] === xPosition),
+}));
+```
+### 셀 상태를 Zustand를 활용하여 전역으로 관리하기
+사용자의 입력과 현재 클릭한 셀 등 여러 개의 상태가 필요했습니다. 문제를 풀기에 용이하도록 2D 보드와 같이 구현할 계획이었기 때문에 3D 스도쿠와 2D 스도쿠 간의 상태 공유가 필요했습니다. 복잡한 설정 없이 간단한 API를 제공하여 상태를 공유할 수 있는 Zustand를 도입하여 전역 상태로 관리하게 되었습니다.
+
+스도쿠 셀을 클릭하거나 값을 입력할 때마다 상태가 업데이트됩니다.
+
+```js
+const initialState = {
+  answerSudoku: [],
+  emptyCellPosition: Array.from({ length: 9 }, () => []),
+  currentCell: { row: 0, col: 0 },
+  currentLayer: 8,
+  completedBoards: Array.from({ length: 9 }, () => false),
+};
+
+const usePuzzleStore = create(
+    (set) => ({
+      ...initialState,
+
+      setAnswerSudoku: (newPuzzle) =>
+        set(() => ({ answerSudoku: newPuzzle })),
+
+      setEmptyCellPosition: (emptyCellPosition) =>
+        set(() => ({ emptyCellPosition: emptyCellPosition })),
+
+      ...
+    }),
+    { name: "puzzle-storage" }
+);
+```
+
+### 문제점: 스도쿠 셀 구현의 어려움과 전체 3D 스도쿠 보드의 가독성 문제
+예상했던 3D 스도쿠의 형태는 정육면체의 내부가 투명하게 보이면서 숫자는 정중앙에 위치할 수 있도록 하는 것이었습니다.
+
+초반에는 R3F에서 3D 큐브를 생성하는 Box 컴포넌트와 3D 텍스트를 생성하는 Text 컴포넌트를 활용하여 구현했습니다. Box 컴포넌트 안에 Text 컴포넌트를 넣은 후 내부를 투명하게 하기 위해 `wireframe` 속성을 사용했습니다. 이 속성은 3D 객체를 구성하는 모든 모서리가 표시되게 됩니다. 따라서 원하지 않은 대각선의 선까지 나타나게 되었습니다.
+
+또한 Box 안에 Text를 넣었을 때 텍스트가 제대로 렌더링되지 않는 문제가 있었습니다.
+
+해결 방안으로 정육면체를 Line 컴포넌트를 통해 구현한 후 Line과 Text 컴포넌트를 합하여 정육면체 내부에 숫자가 보이고 윤곽선만 나타나도록 했습니다. 그리고 Text 컴포넌트와 Line 컴포넌트를 `Group` 으로 묶어 별도로 관리했습니다.
+
+> [!NOTE]
+> **Group**
+>
+> 여러 3D 객체를 하나로 묶어 관리할 수 있게 해주는 컨테이너 역할을 하는 객체로 Group에 포함된 모든 객체에 한 번에 위치, 회전 등을 변경할 수 있다.
+
+### 해결 방안: 3D 스도쿠 보드에서 사용자가 선택한 면에 하이라이트 기능 구현
+초기에는 모든 숫자가 똑같은 선명도로 보이고 여러 개의 스도쿠가 모여있는 형태라 현재 선택된 판을 알기 힘든 모습이었습니다.
+
+<table width="100%">
+  <tr align="center">
+    <td>
+      <img width="200" alt="3D-slide-animation" src="src/assets/readme/first-3D-board.png">
+    </td>
+    <td>
+      <img width="229" alt="3D-slide-animation" src="src/assets/readme/after-3D-board.png">
+    </td>
+  </tr>
+  <tr align="center">
+    <td>초기 모습</td>
+    <td>현재 모습</td>
+  </tr>
+</table>
+
+#### 3D 스도쿠 보드의 가독성을 높이기 위한 시도
+* 안개 효과
+
+    fog 컴포넌트를 사용하여 배경을 흐릿하게 처리하여 사용자와 가까운 곳의 숫자의 값은 선명하게 보이도록 했으나 스도쿠 특성 상 한 면에 있는 숫자들이 선명해져야 했기 때문에 사용성 개선은 되지 않았습니다.
+
+* 선택된 스도쿠를 투명화하기
+
+    사용자가 선택한 스도쿠가 투명해지도록 처리했지만 투명한 면 양쪽으로 색이 채워져있어 오히려 가독성이 떨어졌습니다.
+
+#### 선택되지 않은 셀에는 Box 컴포넌트를 추가하고 선택된 셀에 하이라이트 하기
+
+  색을 지정하지 않은 Box 컴포넌트를 사용자가 선택한 스도쿠 면이 아닌 모든 셀에 적용하여 숫자의 선명도를 줄였습니다.
+
+  현재 선택된 셀의 위치를 전역 상태로 두어 해당 상태와 각 셀의 위치값을 비교하여 같은 부분만 color 속성을 추가한 Box 컴포넌트를 추가했습니다. 이로 인해 스도쿠 보드가 하이라이트되면서 퍼즐마다 명확히 구분지을 수 있게 되었습니다.
+
+  ```js
+    {isHighlighted ? (
+      <Box args={[1, 1, 1]} position={[0.5, 0.5, -0.5]}>
+        <meshBasicMaterial transparent={true} opacity={0.5} color={"#39FF14"} />
+      </Box>
+    ) : (
+      <Box args={[1, 1, 1]} position={[0.5, 0.5, -0.5]}>
+        <meshBasicMaterial transparent={true} opacity={0.2} />
+      </Box>
+    )}
+  ```
+  `isHighlighted` 상태에 따라 다른 color가 적용된 Box 컴포넌트가 렌더링됩니다.
+
+### 개선할 점: 3D 스도쿠의 중심축 변경하기
+현재 마우스를 사용하여 화면을 움직일 때 중심축이 스도쿠 보드의 중앙이 아니라 왼쪽 아래 꼭지점 위치(0,0,0)에 있어서 화면을 움직일 때 어색한 느낌이 있습니다. 현재는 보드의 인덱스와 실제 좌표의 값이 동일하지만 두 값을 분리한 후에 위치를 중앙축으로 변경할 수 있을 것 같습니다.
+
+
+## 5. 생동감을 위한 사운드 추가
 
 게임에서의 효과음은 게임을 생동감있게 만들어 사용자의 몰입감을 높여주는 중요한 요소라고 생각되어 스도쿠 문제 풀이가 시작되거나 클릭이벤트가 발생할 때 브라우저에서 오디오를 재생하기 위해 사용되는 Audio 객체를 활용하여 효과음과 배경음악을 추가했습니다.
 
