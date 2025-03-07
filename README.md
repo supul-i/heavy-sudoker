@@ -36,22 +36,28 @@
   * [1. 스도쿠 문제 생성: 백트래킹 적용](#1-%EC%8A%A4%EB%8F%84%EC%BF%A0-%EB%AC%B8%EC%A0%9C-%EC%83%9D%EC%84%B1-%EB%B0%B1%ED%8A%B8%EB%9E%98%ED%82%B9-%EC%A0%81%EC%9A%A9)
     + [3D 스도쿠의 제약 조건과 구조적 특성 파악하기](#3d-%EC%8A%A4%EB%8F%84%EC%BF%A0%EC%9D%98-%EC%A0%9C%EC%95%BD-%EC%A1%B0%EA%B1%B4%EA%B3%BC-%EA%B5%AC%EC%A1%B0%EC%A0%81-%ED%8A%B9%EC%84%B1-%ED%8C%8C%EC%95%85%ED%95%98%EA%B8%B0)
     + [구현 과정: 백트래킹 알고리즘과 문제 해결을 위한 3D 스도쿠 구조 변경](#%EA%B5%AC%ED%98%84-%EA%B3%BC%EC%A0%95-%EB%B0%B1%ED%8A%B8%EB%9E%98%ED%82%B9-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98%EA%B3%BC-%EB%AC%B8%EC%A0%9C-%ED%95%B4%EA%B2%B0%EC%9D%84-%EC%9C%84%ED%95%9C-3d-%EC%8A%A4%EB%8F%84%EC%BF%A0-%EA%B5%AC%EC%A1%B0-%EB%B3%80%EA%B2%BD)
+    + [문제점: 3D 스도쿠 제약 조건 처리의 복잡성과 백트래킹 알고리즘의 성능 저하](#%EB%AC%B8%EC%A0%9C%EC%A0%90-3d-%EC%8A%A4%EB%8F%84%EC%BF%A0-%EC%A0%9C%EC%95%BD-%EC%A1%B0%EA%B1%B4-%EC%B2%98%EB%A6%AC%EC%9D%98-%EB%B3%B5%EC%9E%A1%EC%84%B1%EA%B3%BC-%EB%B0%B1%ED%8A%B8%EB%9E%98%ED%82%B9-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98%EC%9D%98-%EC%84%B1%EB%8A%A5-%EC%A0%80%ED%95%98)
+    + [해결 방안: 스도쿠 구조 변경](#%ED%95%B4%EA%B2%B0-%EB%B0%A9%EC%95%88-%EC%8A%A4%EB%8F%84%EC%BF%A0-%EA%B5%AC%EC%A1%B0-%EB%B3%80%EA%B2%BD)
     + [개선할 점: 유효성 검사 로직의 최적화와 난이도 조정 방식 추가](#%EA%B0%9C%EC%84%A0%ED%95%A0-%EC%A0%90-%EC%9C%A0%ED%9A%A8%EC%84%B1-%EA%B2%80%EC%82%AC-%EB%A1%9C%EC%A7%81%EC%9D%98-%EC%B5%9C%EC%A0%81%ED%99%94%EC%99%80-%EB%82%9C%EC%9D%B4%EB%8F%84-%EC%A1%B0%EC%A0%95-%EB%B0%A9%EC%8B%9D-%EC%B6%94%EA%B0%80)
-  * [2. 스도쿠의 난이도 결정하기](#2-%EC%8A%A4%EB%8F%84%EC%BF%A0%EC%9D%98-%EB%82%9C%EC%9D%B4%EB%8F%84-%EA%B2%B0%EC%A0%95%ED%95%98%EA%B8%B0)
+  * [2. 스도쿠의 난이도 결정하기: 어떻게 난이도에 맞는 균형 잡힌 빈 칸 배치를 할 수 있을까?](#2-%EC%8A%A4%EB%8F%84%EC%BF%A0%EC%9D%98-%EB%82%9C%EC%9D%B4%EB%8F%84-%EA%B2%B0%EC%A0%95%ED%95%98%EA%B8%B0)
     + [난이도에 따른 빈 칸 개수 설정](#%EB%82%9C%EC%9D%B4%EB%8F%84%EC%97%90-%EB%94%B0%EB%A5%B8-%EB%B9%88-%EC%B9%B8-%EA%B0%9C%EC%88%98-%EC%84%A4%EC%A0%95)
     + [초기 구현 시 발생한 문제: 불균형한 빈 칸 배치](#%EC%B4%88%EA%B8%B0-%EA%B5%AC%ED%98%84-%EC%8B%9C-%EB%B0%9C%EC%83%9D%ED%95%9C-%EB%AC%B8%EC%A0%9C-%EB%B6%88%EA%B7%A0%ED%98%95%ED%95%9C-%EB%B9%88-%EC%B9%B8-%EB%B0%B0%EC%B9%98)
-    + [해결 방안: 빈 칸 재분배 과정을 추가하여 균형 맞추기](#%ED%95%B4%EA%B2%B0-%EB%B0%A9%EC%95%88-%EB%B9%88-%EC%B9%B8-%EC%9E%AC%EB%B6%84%EB%B0%B0-%EA%B3%BC%EC%A0%95%EC%9D%84-%EC%B6%94%EA%B0%80%ED%95%98%EC%97%AC-%EA%B7%A0%ED%98%95-%EB%A7%9E%EC%B6%94%EA%B8%B0)
-  * [3. 사용자를 위한 3D 보드의 펼쳐지는 애니메이션 구현](#3-%EC%82%AC%EC%9A%A9%EC%9E%90%EB%A5%BC-%EC%9C%84%ED%95%9C-3d-%EB%B3%B4%EB%93%9C%EC%9D%98-%ED%8E%BC%EC%B3%90%EC%A7%80%EB%8A%94-%EC%95%A0%EB%8B%88%EB%A9%94%EC%9D%B4%EC%85%98-%EA%B5%AC%ED%98%84)
+    + [해결 방안: 빈 칸 재분배 과정을 추가하여 난이도에 맞는 균형 있는 배치 구현](#%ED%95%B4%EA%B2%B0-%EB%B0%A9%EC%95%88-%EB%B9%88-%EC%B9%B8-%EC%9E%AC%EB%B6%84%EB%B0%B0-%EA%B3%BC%EC%A0%95%EC%9D%84-%EC%B6%94%EA%B0%80%ED%95%98%EC%97%AC-%EB%82%9C%EC%9D%B4%EB%8F%84%EC%97%90-%EB%A7%9E%EB%8A%94-%EA%B7%A0%ED%98%95-%EC%9E%88%EB%8A%94-%EB%B0%B0%EC%B9%98-%EA%B5%AC%ED%98%84)
+  * [3. 사용자를 위한 3D 보드의 펼쳐보기 애니메이션 구현: 3D 스도쿠의 복잡한 조작을 어떻게 개선할 수 있을까?](#3-%EC%82%AC%EC%9A%A9%EC%9E%90%EB%A5%BC-%EC%9C%84%ED%95%9C-3d-%EB%B3%B4%EB%93%9C%EC%9D%98-%ED%8E%BC%EC%B3%90%EB%B3%B4%EA%B8%B0-%EC%95%A0%EB%8B%88%EB%A9%94%EC%9D%B4%EC%85%98-%EA%B5%AC%ED%98%84)
     + [문제점: 3D 스도쿠의 시각적 복잡함과 불편한 조작](#%EB%AC%B8%EC%A0%9C%EC%A0%90-3d-%EC%8A%A4%EB%8F%84%EC%BF%A0%EC%9D%98-%EC%8B%9C%EA%B0%81%EC%A0%81-%EB%B3%B5%EC%9E%A1%ED%95%A8%EA%B3%BC-%EB%B6%88%ED%8E%B8%ED%95%9C-%EC%A1%B0%EC%9E%91)
     + [해결 방안: 펼쳐보기 애니메이션 적용하기](#%ED%95%B4%EA%B2%B0-%EB%B0%A9%EC%95%88-%ED%8E%BC%EC%B3%90%EB%B3%B4%EA%B8%B0-%EC%95%A0%EB%8B%88%EB%A9%94%EC%9D%B4%EC%85%98-%EC%A0%81%EC%9A%A9%ED%95%98%EA%B8%B0)
     + [구현 과정: useSpring 훅을 사용하여 애니메이션 구현](#%EA%B5%AC%ED%98%84-%EA%B3%BC%EC%A0%95-usespring-%ED%9B%85%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%98%EC%97%AC-%EC%95%A0%EB%8B%88%EB%A9%94%EC%9D%B4%EC%85%98-%EA%B5%AC%ED%98%84)
+    + [개선할 점: 애니메이션 성능 최적화와 조작 개선](#%EA%B0%9C%EC%84%A0%ED%95%A0-%EC%A0%90-%EC%95%A0%EB%8B%88%EB%A9%94%EC%9D%B4%EC%85%98-%EC%84%B1%EB%8A%A5-%EC%B5%9C%EC%A0%81%ED%99%94%EC%99%80-%EC%A1%B0%EC%9E%91-%EA%B0%9C%EC%84%A0)
   * [4. 일반적인 스도쿠를 3D로 구현하기](#4-%EC%9D%BC%EB%B0%98%EC%A0%81%EC%9D%B8-%EC%8A%A4%EB%8F%84%EC%BF%A0%EB%A5%BC-3d%EB%A1%9C-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0)
     + [3D로 구현하기 위한 R3F(React Three Fiber) 선택](#3d%EB%A1%9C-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0-%EC%9C%84%ED%95%9C-r3freact-three-fiber-%EC%84%A0%ED%83%9D)
     + [구현 과정: 스도쿠의 셀을 컴포넌트로 관리](#%EA%B5%AC%ED%98%84-%EA%B3%BC%EC%A0%95-%EC%8A%A4%EB%8F%84%EC%BF%A0%EC%9D%98-%EC%85%80%EC%9D%84-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8%EB%A1%9C-%EA%B4%80%EB%A6%AC)
+    + [셀 상태를 Zustand를 활용하여 전역으로 관리하기](#%EC%85%80-%EC%83%81%ED%83%9C%EB%A5%BC-zustand%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%98%EC%97%AC-%EC%A0%84%EC%97%AD%EC%9C%BC%EB%A1%9C-%EA%B4%80%EB%A6%AC%ED%95%98%EA%B8%B0)
+    + [문제점: 스도쿠 셀 구현의 어려움과 전체 3D 스도쿠 보드의 가독성 문제](#%EB%AC%B8%EC%A0%9C%EC%A0%90-%EC%8A%A4%EB%8F%84%EC%BF%A0-%EC%85%80-%EA%B5%AC%ED%98%84%EC%9D%98-%EC%96%B4%EB%A0%A4%EC%9B%80%EA%B3%BC-%EC%A0%84%EC%B2%B4-3d-%EC%8A%A4%EB%8F%84%EC%BF%A0-%EB%B3%B4%EB%93%9C%EC%9D%98-%EA%B0%80%EB%8F%85%EC%84%B1-%EB%AC%B8%EC%A0%9C)
+    + [해결 방안: 3D 스도쿠 보드에서 사용자가 선택한 면에 하이라이트 기능 구현](#%ED%95%B4%EA%B2%B0-%EB%B0%A9%EC%95%88-3d-%EC%8A%A4%EB%8F%84%EC%BF%A0-%EB%B3%B4%EB%93%9C%EC%97%90%EC%84%9C-%EC%82%AC%EC%9A%A9%EC%9E%90%EA%B0%80-%EC%84%A0%ED%83%9D%ED%95%9C-%EB%A9%B4%EC%97%90-%ED%95%98%EC%9D%B4%EB%9D%BC%EC%9D%B4%ED%8A%B8-%EA%B8%B0%EB%8A%A5-%EA%B5%AC%ED%98%84)
     + [개선할 점: 3D 스도쿠의 중심축 변경하기](#%EA%B0%9C%EC%84%A0%ED%95%A0-%EC%A0%90-3d-%EC%8A%A4%EB%8F%84%EC%BF%A0%EC%9D%98-%EC%A4%91%EC%8B%AC%EC%B6%95-%EB%B3%80%EA%B2%BD%ED%95%98%EA%B8%B0)
   * [5. 생동감을 위한 사운드 추가](#5-%EC%83%9D%EB%8F%99%EA%B0%90%EC%9D%84-%EC%9C%84%ED%95%9C-%EC%82%AC%EC%9A%B4%EB%93%9C-%EC%B6%94%EA%B0%80)
-    + [효과음](#%ED%9A%A8%EA%B3%BC%EC%9D%8C)
-    + [배경 음악](#%EB%B0%B0%EA%B2%BD-%EC%9D%8C%EC%95%85)
+    + [문제점: 스도쿠 게임 진행 상황이나 동작에 대한 피드백 부족](#%EB%AC%B8%EC%A0%9C%EC%A0%90-%EC%8A%A4%EB%8F%84%EC%BF%A0-%EA%B2%8C%EC%9E%84-%EC%A7%84%ED%96%89-%EC%83%81%ED%99%A9%EC%9D%B4%EB%82%98-%EB%8F%99%EC%9E%91%EC%97%90-%EB%8C%80%ED%95%9C-%ED%94%BC%EB%93%9C%EB%B0%B1-%EB%B6%80%EC%A1%B1)
+    + [해결 방안: 효과음과 배경음악을 적절하게 배치하여 몰입감 증가](#%ED%95%B4%EA%B2%B0-%EB%B0%A9%EC%95%88-%ED%9A%A8%EA%B3%BC%EC%9D%8C%EA%B3%BC-%EB%B0%B0%EA%B2%BD%EC%9D%8C%EC%95%85%EC%9D%84-%EC%A0%81%EC%A0%88%ED%95%98%EA%B2%8C-%EB%B0%B0%EC%B9%98%ED%95%98%EC%97%AC-%EB%AA%B0%EC%9E%85%EA%B0%90-%EC%A6%9D%EA%B0%80)
 - [회고](#%ED%9A%8C%EA%B3%A0)
 
 <!-- tocstop -->
@@ -82,69 +88,73 @@
 
 
 # 기능 소개
-
-<table border="1">
-  <tr>
-    <td><strong>메인 페이지</strong></td>
-  </tr>
-  <tr>
-    <td>
-      <img width="500" src="src/assets/readme/main.png" alt="main">
-    </td>
-  </tr>
-  <tr>
-    <td>
-      - 스도쿠의 <strong>난이도를 선택</strong>할 수 있습니다.<br>
-      - 어려운 난이도일수록 주어진 숫자의 개수가 적어집니다.
-    </td>
-  </tr>
-</table>
-
-<br>
-
-<table border="1">
-  <tr>
-    <td><strong>스도쿠 페이지 (3D)</strong></td>
-  </tr>
-  <tr>
-    <td>
-      <img width="500" src="src/assets/readme/3D-view.png" alt="3D">
-    </td>
-  </tr>
-  <tr>
-    <td>
-      - 메인 페이지에서 난이도 선택 후 처음 보여지는 화면입니다.
-      <details open>
-        <summary>
-          <strong>펼쳐보기</strong>: 각각 분리된 9개의 스도쿠 보드를 파악할 수 있습니다.
-        </summary>
-        <img width="500" alt="3D-view-detail" src="src/assets/readme/3D-view-detail.png">
-      </details>
-      - <strong>문제 풀기</strong>: 펼쳐보기 후에 나타나는 버튼으로, 하이라이트 되어있는<br> 부분의 스도쿠를 풀 수 있는 2D 보드로 전환됩니다.<br>
-      - 3D 스도쿠 보드에서는 마우스 좌클릭으로 보드 회전, 마우스 휠을<br> 통해 확대/축소를 할 수 있습니다.
-    </td>
-  </tr>
-</table>
+<div align="center">
+  <table border="1">
+    <tr>
+      <td><strong>메인 페이지</strong></td>
+    </tr>
+    <tr>
+      <td>
+        <img width="500" src="src/assets/readme/main.png" alt="main">
+      </td>
+    </tr>
+    <tr>
+      <td>
+        - 스도쿠의 <strong>난이도를 선택</strong>할 수 있습니다.<br>
+        - 어려운 난이도일수록 주어진 숫자의 개수가 적어집니다.
+      </td>
+    </tr>
+  </table>
+</div>
 
 <br>
 
-<table border="1">
-  <tr>
-    <td><strong>스도쿠 페이지 (2D)</strong></td>
-  </tr>
-  <tr>
-    <td>
-      <img width="500" src="src/assets/readme/2D-view.png" alt="2D">
-    </td>
-  </tr>
-  <tr>
-    <td>
-      - 좌측의 숫자로 스도쿠의 빈 칸을 채울 수 있습니다.<br>
-      - <strong>전체 보기</strong>: 3D ↔ 2D 보드 간의 전환이 가능합니다.
-    </td>
-  </tr>
-</table>
+<div align="center">
+  <table border="1">
+    <tr>
+      <td><strong>스도쿠 페이지 (3D)</strong></td>
+    </tr>
+    <tr>
+      <td>
+        <img width="500" src="src/assets/readme/3D-view.png" alt="3D">
+      </td>
+    </tr>
+    <tr>
+      <td>
+        - 메인 페이지에서 난이도 선택 후 처음 보여지는 화면입니다.
+        <details open>
+          <summary>
+            <strong>펼쳐보기</strong>: 각각 분리된 9개의 스도쿠 보드를 파악할 수 있습니다.
+          </summary>
+          <img width="500" alt="3D-view-detail" src="src/assets/readme/3D-view-detail.png">
+        </details>
+        - <strong>문제 풀기</strong>: 펼쳐보기 후에 나타나는 버튼으로, 하이라이트 되어있는<br> 부분의 스도쿠를 풀 수 있는 2D 보드로 전환됩니다.<br>
+        - 3D 스도쿠 보드에서는 마우스 좌클릭으로 보드 회전, 마우스 휠을<br> 통해 확대/축소를 할 수 있습니다.
+      </td>
+    </tr>
+  </table>
+</div>
 
+<br>
+
+<div align="center">
+  <table border="1">
+    <tr>
+      <td><strong>스도쿠 페이지 (2D)</strong></td>
+    </tr>
+    <tr>
+      <td>
+        <img width="500" src="src/assets/readme/2D-view.png" alt="2D">
+      </td>
+    </tr>
+    <tr>
+      <td>
+        - 좌측의 숫자로 스도쿠의 빈 칸을 채울 수 있습니다.<br>
+        - <strong>전체 보기</strong>: 3D ↔ 2D 보드 간의 전환이 가능합니다.
+      </td>
+    </tr>
+  </table>
+</div>
 
 <br>
 
@@ -241,7 +251,7 @@
   <img width="200" alt="diagonal-block" src="src/assets/readme/blank-error.png" />
 </p>
 
- ### 해결 방안: 빈 칸 재분배 과정을 추가하여 균형 맞추기
+ ### 해결 방안: 빈 칸 재분배 과정을 추가하여 난이도에 맞는 균형 있는 배치 구현
 각 가로줄을 확인하여 비어있는 칸을 기록하고 해당 줄에서 추가로 비워야 할 칸이 무엇인지 무작위로 정해지는 단계를 거친 후에 빈 칸 재분배 로직을 추가했습니다.
 모든 줄을 체크하여 완전히 비어있는 줄이라면 상대적으로 숫자가 많이 채워진 줄에서 일부를 가져와 추가했습니다. 모든 가로줄에서 최소한 1개의 빈 칸이 존재할 수 있도록 했습니다.
 
@@ -256,7 +266,7 @@ https://github.com/supul-i/heavy-sudoker/blob/189d443f9fae3300a7cd4983fed9915de1
 
 <br>
 
-## 3. 사용자를 위한 3D 보드의 펼쳐지는 애니메이션 구현
+## 3. 사용자를 위한 3D 보드의 펼쳐보기 애니메이션 구현
 
 <p align="center">
   <img width="600" alt="3D-slide-animation" src="src/assets/readme/3D-view-detail.gif">
@@ -277,10 +287,10 @@ https://github.com/supul-i/heavy-sudoker/blob/189d443f9fae3300a7cd4983fed9915de1
 애니메이션을 구현하기 전에 어떤 기술이 프로젝트와 적합할지 비교해 봤습니다.
 
 | 기술 | 특징 | 장점 | 단점 |
-| --- | --- | --- | --- |
-| **React Three Fiber (R3F) - useFrame** | R3F에서 제공하는 훅으로 <br>매 프레임마다 콜백을 호출하기 때문에 3D 씬에서 발생하는 애니메이션을 프레임 단위로 제어 가능 | - 프레임 단위로 애니메이션을 제어하여 부드러운 애니메이션 구현 가능<br><br>- 언마운트 시 자동 콜백 정리로 메모리 누수 방지 | - 빠른 실행으로 로그 기록이<br> 어려움<br><br>- 디버깅이 까다로움 |
+| ----- | ---------- | ---------- | ---------- |
+| **React Three Fiber (R3F) - useFrame** | R3F에서 제공하는 훅으로 매 프레임마다 콜백을 호출하기 때문에 3D 씬에서 발생하는 애니메이션을 프레임 단위로 제어 가능 | - 프레임 단위로 애니메이션을 제어하여 부드러운 애니메이션 구현 가능<br><br>- 언마운트 시 자동 콜백 정리로 메모리 누수 방지 | - 빠른 실행으로 로그 기록이 어려움<br><br>- 디버깅이 까다로움 |
 | **React Spring - useSpring** | 상태 변화에 따라 자동으로 애니메이션이 동작 | - 물리 기반 애니메이션 제공으로 자연스러운 동작 구현 가능<br><br>- 상태 변화에 따라 자동으로 애니메이션 실행되어 동기화 용이 | 매 프레임마다 동적으로 값을 변경하는 애니메이션에 적합하지 않음 |
-| **Tween.js** | 시작과 끝 값을 지정하면 다양한 easing 함수를 사용하여 애니메이션 구현 가능 | - 복잡한 상태 관리 없이 간단히 애니메이션 추가 가능<br><br>- 다양한 환경(DOM, Canvas, WebGL 등)에서 사용 가능<br><br> - 정교한 시간 조정과 상태 간의 연결을 할 때 유용 | React와 직접 통합되지 않아 상태 기반 애니메이션 구현 시 추가 작업 필요하며 기능이 다른 기술에 비해 제한적임 |
+| **Tween.js** | 시작과 끝 값을 지정하면 다양한 easing 함수를 사용하여 애니메이션 구현 가능 | - 복잡한 상태 관리 없이 간단히 애니메이션 추가 가능<br><br>- 다양한 환경(DOM, Canvas, WebGL 등)에서 사용 가능<br><br>- 정교한 시간 조정과 상태 간의 연결을 할 때 유용 | React와 직접 통합되지 않아 상태 기반 애니메이션 구현 시 추가 작업 필요하며 기능이 다른 기술에 비해 제한적임 |
 
 물리 기반 애니메이션이므로 추가적인 조정 없이도 부드럽고 자연스러우며 React의 상태를 잘 활용할 수 있는 `React Spring`을 선택하게 되었습니다.
 
@@ -355,6 +365,17 @@ return (
 
 시각적으로 복잡한 퍼즐 구조를 스도쿠 판 별로 분리하면서 가독성을 향상시켜 사용자가 좀 더 쉽게 이해하고 이용할 수 있도록 개선되었습니다.
 
+### 개선할 점: 애니메이션 성능 최적화와 조작 개선
+1. 애니메이션 성능 최적화 필요
+
+    많은 수의 3D 객체가 렌더링되어 펼쳐보기 애니메이션을 실행했을 때 자연스럽게 움직여지지 않고 딜레이가 있는 모습이 보였습니다. 많은 수의 객체가 자주 리렌더링되는 컴포넌트나 함수에 리액트의 메모이제이션을 적용하여 렌더링을 줄일 수 있을 것 같습니다. 또한 React Spring의 config 속성을 통해 동작을 세밀하게 제어하여 좀 더 부드러운 전환이 되도록 개선이 가능할 것 같습니다.
+
+2. 카메라 위치와 조작 개선
+
+ * Three.js에서 카메라는 3D 공간을 바라보는 관점을 정의하는 요소입니다.
+
+    펼쳐보기 버튼을 클릭할 때 사용자가 위치한 곳에서 바로 애니메이션이 실행되기 때문에 스도쿠 보드 가까이에 위치하고 있을 땐 사용자가 직접 움직여서 보드 전체가 보이도록 조작해야하는 문제가 있습니다. 애니메이션이 실행될 때 카메라 위치를 조정하여 사용자가 조작하지 않아도 시야가 보이도록 개선할 수 있을 것 같습니다.
+
 <br>
 
 ## 4. 일반적인 스도쿠를 3D로 구현하기
@@ -405,6 +426,7 @@ const usePuzzleStore = create(
 ```
 
 ### 문제점: 스도쿠 셀 구현의 어려움과 전체 3D 스도쿠 보드의 가독성 문제
+#### 스도쿠 셀 구현의 어려움: 텍스트 렌더링과 투명도 처리 문제
 예상했던 3D 스도쿠의 형태는 정육면체의 내부가 투명하게 보이면서 숫자는 정중앙에 위치할 수 있도록 하는 것이었습니다.
 
 초반에는 R3F에서 3D 큐브를 생성하는 Box 컴포넌트와 3D 텍스트를 생성하는 Text 컴포넌트를 활용하여 구현했습니다. Box 컴포넌트 안에 Text 컴포넌트를 넣은 후 내부를 투명하게 하기 위해 `wireframe` 속성을 사용했습니다. 이 속성은 3D 객체를 구성하는 모든 모서리가 표시되게 됩니다. 따라서 원하지 않은 대각선의 선까지 나타나게 되었습니다.
@@ -418,33 +440,35 @@ const usePuzzleStore = create(
 >
 > 여러 3D 객체를 하나로 묶어 관리할 수 있게 해주는 컨테이너 역할을 하는 객체로 Group에 포함된 모든 객체에 한 번에 위치, 회전 등을 변경할 수 있다.
 
-### 해결 방안: 3D 스도쿠 보드에서 사용자가 선택한 면에 하이라이트 기능 구현
+#### 3D 스도쿠 보드의 가독성 문제
 초기에는 모든 숫자가 똑같은 선명도로 보이고 여러 개의 스도쿠가 모여있는 형태라 현재 선택된 판을 알기 힘든 모습이었습니다.
-
-<table width="100%">
-  <tr align="center">
-    <td>
-      <img width="200" alt="3D-slide-animation" src="src/assets/readme/first-3D-board.png">
-    </td>
-    <td>
-      <img width="229" alt="3D-slide-animation" src="src/assets/readme/after-3D-board.png">
-    </td>
-  </tr>
-  <tr align="center">
-    <td>초기 모습</td>
-    <td>현재 모습</td>
-  </tr>
-</table>
+<div align="center">
+  <table width="100%">
+    <tr align="center">
+      <td>
+        <img width="200" alt="3D-slide-animation" src="src/assets/readme/first-3D-board.png">
+      </td>
+      <td>
+        <img width="229" alt="3D-slide-animation" src="src/assets/readme/after-3D-board.png">
+      </td>
+    </tr>
+    <tr align="center">
+      <td>초기 모습</td>
+      <td>현재 모습</td>
+    </tr>
+  </table>
+</div>
 
 #### 3D 스도쿠 보드의 가독성을 높이기 위한 시도
-* 안개 효과
+* 안개 효과 적용하기
 
-    fog 컴포넌트를 사용하여 배경을 흐릿하게 처리하여 사용자와 가까운 곳의 숫자의 값은 선명하게 보이도록 했으나 스도쿠 특성 상 한 면에 있는 숫자들이 선명해져야 했기 때문에 사용성 개선은 되지 않았습니다.
+    [fog 속성](https://threejs.org/docs/index.html?q=fog#api/en/scenes/Fog)을 사용하여 멀리 있는 객체들이 점진적으로 흐릿하게 처리되어 사용자와 가까운 곳의 숫자의 값은 선명하게 보이도록 했으나 스도쿠 특성 상 한 면에 있는 숫자들이 선명해져야 했기 때문에 사용성 개선은 되지 않았습니다.
 
 * 선택된 스도쿠를 투명화하기
 
     사용자가 선택한 스도쿠가 투명해지도록 처리했지만 투명한 면 양쪽으로 색이 채워져있어 오히려 가독성이 떨어졌습니다.
 
+### 해결 방안: 3D 스도쿠 보드에서 사용자가 선택한 면에 하이라이트 기능 구현
 #### 선택되지 않은 셀에는 Box 컴포넌트를 추가하고 선택된 셀에 하이라이트 하기
 
   색을 지정하지 않은 Box 컴포넌트를 사용자가 선택한 스도쿠 면이 아닌 모든 셀에 적용하여 숫자의 선명도를 줄였습니다.
@@ -469,16 +493,17 @@ const usePuzzleStore = create(
 
 
 ## 5. 생동감을 위한 사운드 추가
-
+### 문제점: 스도쿠 게임 진행 상황이나 동작에 대한 피드백 부족
 게임에서의 효과음은 게임을 생동감있게 만들어 사용자의 몰입감을 높여주는 중요한 요소라고 생각되어 스도쿠 문제 풀이가 시작되거나 클릭이벤트가 발생할 때 브라우저에서 오디오를 재생하기 위해 사용되는 Audio 객체를 활용하여 효과음과 배경음악을 추가했습니다.
 
-### 효과음
+### 해결 방안: 효과음과 배경음악을 적절하게 배치하여 몰입감 증가
+#### 효과음
    * 2D 스도쿠에서 셀 선택: 클릭 사운드
    * 숫자 패드 or 숫자 키보드 선택: 키패드 사운드
 
 각 효과음을 Audio 객체로 생성 후 상황에 맞게 재생할 수 있도록 유틸리티 함수를 작성했습니다. 효과음이 쓰이는 컴포넌트의 외부에서 사운드 기능을 관리하여 역할이 명확히 분리되도록 했습니다.
 
-### 배경 음악
+#### 배경 음악
    * 메인 페이지에서 난이도를 선택하고 스도쿠가 보여지면서 재생되는 음악을 넣었으며 사용자가 배경음을 제어할 수 있도록 재생/정지 기능을 구현했습니다.
 
 배경 음악을 재생하고 관련 속성을 제어하는 컴포넌트를 정의했습니다. useRef와 useState를 활용하여 재생/정지 기능과 볼륨 제어를 구현했습니다.
