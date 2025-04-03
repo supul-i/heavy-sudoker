@@ -9,14 +9,34 @@ function NumericKeypad() {
   const currentCell = usePuzzleStore((state) => state.currentCell);
   const currentLayer = usePuzzleStore((state) => state.currentLayer);
   const updateUserInputValue = useUserStore((state) => state.updateUserInputValue);
+  const resetSudoku = useUserStore((state) => state.resetLayerUserHistory);
 
   const handleSelectedNumber = (number) => {
     playClickKeyPadSound();
-    updateUserInputValue(8 - currentLayer, currentCell.row, currentCell.col, number);
+
+    if (number) {
+      updateUserInputValue(8 - currentLayer, currentCell.row, currentCell.col, number);
+    } else {
+      updateUserInputValue(8 - currentLayer, currentCell.row, currentCell.col, null);
+    }
   };
 
   return (
     <div className="h-80 w-56">
+      <div className="mb-3 grid grid-cols-2 gap-3">
+        <button
+          onClick={() => resetSudoku(8 - currentLayer)}
+          className="rounded-lg bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-slate-700"
+        >
+          초기화
+        </button>
+        <button
+          onClick={() => handleSelectedNumber(null)}
+          className="rounded-lg bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-slate-700"
+        >
+          삭제
+        </button>
+      </div>
       <div className="grid grid-cols-3 grid-rows-3 gap-3 text-center">
         {numbersOfPad.map((number) => (
           <div
