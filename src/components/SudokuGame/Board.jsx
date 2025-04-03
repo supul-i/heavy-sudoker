@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 import usePuzzleStore from "../../store/usePuzzleStore";
 import useUserStore from "../../store/useUserStore";
 import { isValid } from "../../utils/setSudoku";
