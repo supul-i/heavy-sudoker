@@ -24,7 +24,14 @@ const useUserStore = create(
           state.userInputValues[layer][rowIndex][colIndex] = newInputValue;
         }),
 
-      resetUserHistory: () =>
+      resetLayerUserHistory: (layer) =>
+        set((state) => {
+          state.userInputValues[layer] = Array.from({ length: PUZZLE_SIZE }, () =>
+            Array(PUZZLE_SIZE).fill(null)
+          );
+        }),
+
+      resetAllUserHistory: () =>
         set(() => ({
           ...initialState,
         })),

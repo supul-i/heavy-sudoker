@@ -12,12 +12,12 @@ function Home() {
   const setAnswerSudoku = usePuzzleStore((state) => state.setAnswerSudoku);
   const setEmptyCellPosition = usePuzzleStore((state) => state.setEmptyCellPosition);
   const resetPuzzle = usePuzzleStore((state) => state.resetPuzzle);
-  const resetUserHistory = useUserStore((state) => state.resetUserHistory);
+  const resetAllUserHistory = useUserStore((state) => state.resetAllUserHistory);
 
   useEffect(() => {
     resetPuzzle();
-    resetUserHistory();
-  }, [resetPuzzle, resetUserHistory]);
+    resetAllUserHistory();
+  }, [resetPuzzle, resetAllUserHistory]);
 
   const handlePlaySudoku = (difficultyLevel) => {
     const sudokuMap = Array(PUZZLE_SIZE)
