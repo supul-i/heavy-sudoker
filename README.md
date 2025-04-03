@@ -1,8 +1,8 @@
 # Heavy Sudoker
 
-<p align="center">
+<div align="center">
   <img width="180" alt="logo" src="src/assets/readme/logo.png" />
-</p>
+</div>
 
 <p align="center">Heavy Sudoker는 3D 큐브 형태로 클래식 스도쿠 퍼즐을 즐길 수 있는 게임입니다.</p>
 
@@ -12,7 +12,7 @@
 
 <br>
 
-<p align="center">
+<div align="center">
   <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-round&logo=JavaScript&logoColor=white">
   <img src="https://img.shields.io/badge/React-61DAFB?style=flat-round&logo=react&logoColor=white">
   <img src="https://img.shields.io/badge/Zustand-8d6d40?style=flat-round&logo=Zustand&logoColor=white">
@@ -21,7 +21,7 @@
   <img src="https://img.shields.io/badge/R3F-3B66BC?style=flat-round&logo=R3F&logoColor=white">
   <img src="https://img.shields.io/badge/Tailwind CSS-06B6D4?style=flat-round&logo=tailwindCSS&logoColor=white">
   <img src="https://img.shields.io/badge/Git-FC6D26?style=flat-round&logo=Git&logoColor=white">
-</p>
+</div>
 
 <br>
 
@@ -66,11 +66,25 @@
 
 # 게임 규칙
 
-처음 주어진 퍼즐(9x9, 총 81칸의 정사각형)엔 숫자가 일부 채워져 있고 나머지 빈 칸을 다음 규칙에 맞게 넣어야 합니다.
+<table>
+  <tr align="center">
+    <td width="50%">
+      <img width="75%" alt="sudoku-rule" src="src/assets/readme/rule.png" />
+    </td>
+    <td width="50%">
+      <img width="100%" alt="3d-rule" src="src/assets/readme/3D-rule.png" />
+    </td>
+  </tr>
+  <tr align="center">
+    <td>2D 스도쿠 보드</td>
+    <td>3D 스도쿠 보드</td>
+  </tr>
+</table>
 
-<p align="center">
-  <img width="200" alt="sudoku-rule" src="src/assets/readme/rule.png" />
-</p>
+
+스도쿠를 시작하면 표 우측의 3D 스도쿠가 먼저 보여집니다. 3D 큐브의 각 면마다 스도쿠 문제가 있으며 전체 9개의 스도쿠를 모두 완성하면 게임이 종료됩니다.
+
+문제 풀이를 시작하면 2D 스도쿠가 보여집니다. 처음 주어진 퍼즐(9x9, 총 81칸의 정사각형)엔 숫자가 일부 채워져 있고 나머지 빈 칸을 다음 규칙에 맞게 넣어야 합니다.
 
 * 각각의 가로 줄과 세로 줄에 1부터 9까지의 숫자가 중복되지 않도록 한 번만 넣어야 합니다.
 
@@ -78,14 +92,8 @@
 
 * 같은 줄이나 블록에서 하나 이상의 숫자가 같다면 틀린 풀이가 됩니다.
 
-<p align="center">
-  <img width="300" alt="3d-rule" src="src/assets/readme/3D-rule.png" />
-</p>
-
-* 3D 큐브의 각 면마다 스도쿠 문제가 있으며 전체 9개의 스도쿠를 모두 완성하면 게임이 종료됩니다.
 
 <br>
-
 
 # 기능 소개
 <div align="center">
@@ -209,9 +217,9 @@
 
 위 과정을 반복하여 81개의 셀을 모두 채워나가게 됩니다. 아래 예시를 보면 물음표가 있는 셀은 같은 가로줄을 봤을 땐 `9`밖에 해당되지 않지만 세로줄과 3x3영역에서 이미 `9`가 사용되었습니다. 이 경우 다시 이전 셀인 17번째 셀로 돌아가 다른 숫자를 시도하게 됩니다.
 
-<p align="center">
+<div align="center">
   <img width="200" src="src/assets/readme/backtracking.png" alt="backtracking" />
-</p>
+</div>
 
 다시 이전 단계로 되돌아갈 땐 해당 단계에서 실패한 숫자를 기억하고 다시 시도되지 않도록 제거했습니다.
 
@@ -247,9 +255,9 @@
 ### 초기 구현 시 발생한 문제: 불균형한 빈 칸 배치
 빈 칸이 특정 가로줄에 몰리거나 어떤 줄에 9칸이 완전히 채워지는 문제가 있었습니다. 빈 칸이 한쪽으로 치우치거나 가로줄이 완전한 빈 줄일 경우에는 퍼즐의 난이도가 의도된 난이도와 다르게 지나치게 쉽거나 어려워질 수 있었습니다.
 
-<p align="center">
+<div align="center">
   <img width="200" alt="diagonal-block" src="src/assets/readme/blank-error.png" />
-</p>
+</div>
 
  ### 해결 방안: 빈 칸 재분배 과정을 추가하여 난이도에 맞는 균형 있는 배치 구현
 각 가로줄을 확인하여 비어있는 칸을 기록하고 해당 줄에서 추가로 비워야 할 칸이 무엇인지 무작위로 정해지는 단계를 거친 후에 빈 칸 재분배 로직을 추가했습니다.
@@ -268,11 +276,11 @@ https://github.com/supul-i/heavy-sudoker/blob/189d443f9fae3300a7cd4983fed9915de1
 
 ## 3. 사용자를 위한 3D 보드의 펼쳐보기 애니메이션 구현
 
-<p align="center">
+<div align="center">
   <img width="600" alt="3D-slide-animation" src="src/assets/readme/3D-view-detail.gif">
   <br>
   펼쳐보기 애니메이션 동작
-</p>
+</div>
 
 ### 문제점: 3D 스도쿠의 시각적 복잡함과 불편한 조작
 3D 스도쿠는 9x9x9 큐브 형태로 되어있어 일반적인 2D 스도쿠보다 시각적으로 복잡하고 사용자가 현재 풀고있는 영역을 쉽게 파악하기 어려운 문제가 있었습니다.
@@ -442,22 +450,21 @@ const usePuzzleStore = create(
 
 #### 3D 스도쿠 보드의 가독성 문제
 초기에는 모든 숫자가 똑같은 선명도로 보이고 여러 개의 스도쿠가 모여있는 형태라 현재 선택된 판을 알기 힘든 모습이었습니다.
-<div align="center">
-  <table width="100%">
-    <tr align="center">
-      <td>
-        <img width="200" alt="3D-slide-animation" src="src/assets/readme/first-3D-board.png">
-      </td>
-      <td>
-        <img width="229" alt="3D-slide-animation" src="src/assets/readme/after-3D-board.png">
-      </td>
-    </tr>
-    <tr align="center">
-      <td>초기 모습</td>
-      <td>현재 모습</td>
-    </tr>
-  </table>
-</div>
+
+<table align="center">
+  <tr>
+    <td width="50%">
+      <img width="215" height="210" alt="3D-slide-animation" src="src/assets/readme/first-3D-board.png">
+    </td>
+    <td width="50%">
+      <img width="215" height="210" alt="3D-slide-animation" src="src/assets/readme/after-3D-board.png">
+    </td>
+  </tr>
+  <tr align="center">
+    <td>초기 모습</td>
+    <td>현재 모습</td>
+  </tr>
+</table>
 
 #### 3D 스도쿠 보드의 가독성을 높이기 위한 시도
 * 안개 효과 적용하기
@@ -491,6 +498,7 @@ const usePuzzleStore = create(
 ### 개선할 점: 3D 스도쿠의 중심축 변경하기
 현재 마우스를 사용하여 화면을 움직일 때 중심축이 스도쿠 보드의 중앙이 아니라 왼쪽 아래 꼭지점 위치(0,0,0)에 있어서 화면을 움직일 때 어색한 느낌이 있습니다. 현재는 보드의 인덱스와 실제 좌표의 값이 동일하지만 두 값을 분리한 후에 위치를 중앙축으로 변경할 수 있을 것 같습니다.
 
+<br>
 
 ## 5. 생동감을 위한 사운드 추가
 ### 문제점: 스도쿠 게임 진행 상황이나 동작에 대한 피드백 부족
