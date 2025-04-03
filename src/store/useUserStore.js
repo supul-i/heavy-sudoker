@@ -11,27 +11,25 @@ const initialState = {
 
 const useUserStore = create(
   persist(
-    immer(
-      (set) => ({
-        ...initialState,
+    immer((set) => ({
+      ...initialState,
 
-        setUserInputValues: (userInputValues) =>
-          set(() => ({
-            userInputValues: userInputValues,
-          })),
+      setUserInputValues: (userInputValues) =>
+        set(() => ({
+          userInputValues: userInputValues,
+        })),
 
-        updateUserInputValue: (layer, rowIndex, colIndex, newInputValue) =>
-          set((state) => {
-            state.userInputValues[layer][rowIndex][colIndex] = newInputValue;
-          }),
+      updateUserInputValue: (layer, rowIndex, colIndex, newInputValue) =>
+        set((state) => {
+          state.userInputValues[layer][rowIndex][colIndex] = newInputValue;
+        }),
 
-        resetUserHistory: () =>
-          set(() => ({
-            ...initialState,
-          })),
-      }),
-      { name: "user-storage" }
-    )
+      resetUserHistory: () =>
+        set(() => ({
+          ...initialState,
+        })),
+    })),
+    { name: "user-storage" }
   )
 );
 
