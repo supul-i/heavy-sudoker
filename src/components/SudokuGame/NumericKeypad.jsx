@@ -26,13 +26,13 @@ function NumericKeypad() {
       <div className="mb-3 grid grid-cols-2 gap-3">
         <button
           onClick={() => resetSudoku(8 - currentLayer)}
-          className="rounded-lg bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-slate-700"
+          className="rounded-lg bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-slate-700 dark:bg-cyan-700 dark:hover:bg-cyan-500"
         >
           초기화
         </button>
         <button
           onClick={() => handleSelectedNumber(null)}
-          className="rounded-lg bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-slate-700"
+          className="rounded-lg bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-slate-700 dark:bg-cyan-700 dark:hover:bg-cyan-500"
         >
           삭제
         </button>

@@ -6,6 +6,7 @@ import usePuzzleStore from "../../../store/usePuzzleStore";
 function CubeCell({ position, number, isEmpty, userInputValue }) {
   const setCurrentLayer = usePuzzleStore((state) => state.setCurrentLayer);
   const currentLayer = usePuzzleStore((state) => state.currentLayer);
+  const theme = usePuzzleStore((state) => state.theme);
   const cubeCell = useRef();
   const [hoveredCell, setHoveredCell] = useState(null);
   const isHovered = position.join() === hoveredCell;
@@ -81,21 +82,25 @@ function CubeCell({ position, number, isEmpty, userInputValue }) {
         )}
         <Text
           scale={[0.5, 0.5, 0.5]}
-          color={isHovered ? "red" : "black"}
+          color={isHovered ? "red" : theme === "dark" ? "#EBFFEB" : "black"}
           anchorX="center"
           anchorY="middle"
-          fontWeight={600}
+          fontWeight={800}
         >
           {isEmpty ? null : number}
         </Text>
       </Billboard>
       {isHighlighted ? (
         <Box args={[1, 1, 1]} position={[0.5, 0.5, -0.5]}>
-          <meshBasicMaterial transparent={true} opacity={0.5} color={"#39FF14"} />
+          <meshBasicMaterial transparent={true} opacity={0.3} color={"#39FF14"} />
         </Box>
       ) : (
         <Box args={[1, 1, 1]} position={[0.5, 0.5, -0.5]}>
-          <meshBasicMaterial transparent={true} opacity={0.2} />
+          <meshBasicMaterial
+            transparent={true}
+            opacity={0.2}
+            color={theme === "dark" ? "#9d9b9b" : "#ffffff"}
+          />
         </Box>
       )}
     </group>
