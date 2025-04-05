@@ -22,6 +22,8 @@ function SudokuPuzzles() {
   const currentLayer = usePuzzleStore((state) => state.currentLayer);
   const userInputValues = useUserStore((state) => state.userInputValues);
   const completedBoards = usePuzzleStore((state) => state.completedBoards);
+  const theme = usePuzzleStore((state) => state.theme);
+  const setTheme = usePuzzleStore((state) => state.setTheme);
 
   useEffect(() => {
     setSudokuMap(answerSudoku[8 - currentLayer]);
@@ -73,6 +75,11 @@ function SudokuPuzzles() {
     navigate("/", { replace: true });
   };
 
+  const switchTheme = () => {
+    const newTheme = theme === "dark" ? "light" : "dark";
+    setTheme(newTheme);
+  };
+
   return (
     <>
       <div className="grid h-screen place-items-center dark:bg-black">
@@ -98,6 +105,7 @@ function SudokuPuzzles() {
       </div>
       <div className="fixed bottom-3 left-1/2 box-content flex h-14 -translate-x-1/2 gap-3 rounded-md bg-gray-200 p-2.5 px-5 dark:bg-stone-700">
         <OutlineButton text="홈" onClick={handleGoHomePage} size="S" />
+        <OutlineButton text="테마 변경" onClick={switchTheme} size="S" />
         <BackgroundSound />
         {viewMode === "threeDimensions" && isLayerView ? (
           <>
