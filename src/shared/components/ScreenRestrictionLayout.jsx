@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
-import { MIN_SCREEN_HEIGHT, MIN_SCREEN_WIDTH } from "../../constants/layout";
+import { MIN_SCREEN_HEIGHT, MIN_SCREEN_WIDTH, THROTTLE_DELAY } from "../../constants/layout";
+import throttle from "../../utils/throttle";
 import GuideMessage from "./GuideMessage";
 
 function ScreenRestrictionLayout({ children }) {
@@ -8,10 +9,10 @@ function ScreenRestrictionLayout({ children }) {
   const [windowHeight, setWindowHeight] = useState(undefined);
 
   useEffect(() => {
-    const handleWindowSize = () => {
+    const handleWindowSize = throttle(() => {
       setWindowWidth(window.innerWidth);
       setWindowHeight(window.innerHeight);
-    };
+    }, THROTTLE_DELAY);
 
     window.addEventListener("resize", handleWindowSize);
 
