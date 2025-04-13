@@ -5,8 +5,8 @@ import throttle from "../../utils/throttle";
 import GuideMessage from "./GuideMessage";
 
 function ScreenRestrictionLayout({ children }) {
-  const [windowWidth, setWindowWidth] = useState(null);
-  const [windowHeight, setWindowHeight] = useState(null);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [windowHeight, setWindowHeight] = useState(window.innerHeight);
 
   useEffect(() => {
     const handleWindowSize = throttle(() => {
@@ -14,7 +14,6 @@ function ScreenRestrictionLayout({ children }) {
       setWindowHeight(window.innerHeight);
     }, THROTTLE_DELAY);
 
-    handleWindowSize();
     window.addEventListener("resize", handleWindowSize);
 
     return () => window.removeEventListener("resize", handleWindowSize);
