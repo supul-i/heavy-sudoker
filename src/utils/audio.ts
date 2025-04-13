@@ -3,10 +3,10 @@ import clickKeyPadSoundSrc from "../assets/sound/click-Keypad.mp3";
 import correctSoundSrc from "../assets/sound/correct-sound.mp3";
 import errorSoundSrc from "../assets/sound/wrong-error.mp3";
 
-const clickSound = new Audio(clickSoundSrc);
-const clickKeyPadSound = new Audio(clickKeyPadSoundSrc);
-const correctSound = new Audio(correctSoundSrc);
-const errorSound = new Audio(errorSoundSrc);
+const clickSound: HTMLAudioElement = new Audio(clickSoundSrc);
+const clickKeyPadSound: HTMLAudioElement = new Audio(clickKeyPadSoundSrc);
+const correctSound: HTMLAudioElement = new Audio(correctSoundSrc);
+const errorSound: HTMLAudioElement = new Audio(errorSoundSrc);
 
 const playClickSound = () => clickSound.play();
 const playClickKeyPadSound = () => clickKeyPadSound.play();

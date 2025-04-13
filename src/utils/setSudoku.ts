@@ -1,15 +1,15 @@
 import { PUZZLE_SIZE } from "../constants/puzzle";
 
-const getRandomNum = (maxNumber) => Math.floor(Math.random() * maxNumber);
+const getRandomNum = (maxNumber: number): number => Math.floor(Math.random() * maxNumber);
 
-const setDiagonalBlock = (sudoku) => {
+const setDiagonalBlock = (sudoku: number[][]): number[][] => {
   for (let firstIndexOfBlock = 0; firstIndexOfBlock < PUZZLE_SIZE; firstIndexOfBlock += 3) {
-    const validNumbers = Array.from({ length: 9 }, (_, i) => i + 1);
+    const validNumbers: number[] = Array.from({ length: PUZZLE_SIZE }, (_, i) => i + 1);
 
     for (let rowIndex = 0; rowIndex < 3; rowIndex++) {
       for (let colIndex = 0; colIndex < 3; colIndex++) {
-        const randomIndex = getRandomNum(validNumbers.length);
-        const randomNumber = validNumbers[randomIndex];
+        const randomIndex: number = getRandomNum(validNumbers.length);
+        const randomNumber: number = validNumbers[randomIndex];
 
         sudoku[firstIndexOfBlock + rowIndex][firstIndexOfBlock + colIndex] = randomNumber;
         validNumbers.splice(randomIndex, 1);
@@ -22,12 +22,17 @@ const setDiagonalBlock = (sudoku) => {
   return sudoku;
 };
 
-const isValid = (sudoku, rowIndex, colIndex, number) => {
-  const checkRow = () => {
+const isValid = (
+  sudoku: number[][],
+  rowIndex: number,
+  colIndex: number,
+  number: number
+): boolean => {
+  const checkRow = (): boolean => {
     return !sudoku[rowIndex].some((filledValue) => filledValue === number);
   };
 
-  const checkCol = () => {
+  const checkCol = (): boolean => {
     for (let row = 0; row < PUZZLE_SIZE; row++) {
       if (sudoku[row][colIndex] === number) {
         return false;
@@ -37,7 +42,7 @@ const isValid = (sudoku, rowIndex, colIndex, number) => {
     return true;
   };
 
-  const checkBlock = () => {
+  const checkBlock = (): boolean => {
     const rowIndexOfBlock = rowIndex - (rowIndex % 3);
     const colIndexOfBlock = colIndex - (colIndex % 3);
 
@@ -55,7 +60,7 @@ const isValid = (sudoku, rowIndex, colIndex, number) => {
   return checkRow() && checkCol() && checkBlock();
 };
 
-const fillRemainCells = (sudoku, rowIndex, colIndex) => {
+const fillRemainCells = (sudoku: number[][], rowIndex: number, colIndex: number): boolean => {
   if (rowIndex === PUZZLE_SIZE - 1 && colIndex === PUZZLE_SIZE) {
     return true;
   }
@@ -69,11 +74,11 @@ const fillRemainCells = (sudoku, rowIndex, colIndex) => {
     return fillRemainCells(sudoku, rowIndex, colIndex + 1);
   }
 
-  let validNumbers = Array.from({ length: 9 }, (_, i) => i + 1);
+  let validNumbers: number[] = Array.from({ length: PUZZLE_SIZE }, (_, i) => i + 1);
 
   while (validNumbers.length > 0) {
-    const randomIndex = getRandomNum(validNumbers.length);
-    const randomNumber = validNumbers[randomIndex];
+    const randomIndex: number = getRandomNum(validNumbers.length);
+    const randomNumber: number = validNumbers[randomIndex];
 
     if (isValid(sudoku, rowIndex, colIndex, randomNumber)) {
       sudoku[rowIndex][colIndex] = randomNumber;
@@ -91,8 +96,8 @@ const fillRemainCells = (sudoku, rowIndex, colIndex) => {
   return false;
 };
 
-const setSudoku = () => {
-  const sudoku = Array.from({ length: PUZZLE_SIZE }, () => Array(PUZZLE_SIZE).fill(0));
+const setSudoku = (): number[][] => {
+  const sudoku: number[][] = Array.from({ length: PUZZLE_SIZE }, () => Array(PUZZLE_SIZE).fill(0));
 
   return setDiagonalBlock(sudoku);
 };

@@ -51,7 +51,7 @@ export default [
       "react/button-has-type": "off",
       "react/no-unknown-property": "off",
       "react/jsx-filename-extension": ["warn", { extensions: [".js", ".jsx", ".ts", ".tsx"] }],
-      "prettier/prettier": "error",
+      "prettier/prettier": ["error", { endOfLine: "auto" }],
       "no-empty-interface": "off",
     },
   },
