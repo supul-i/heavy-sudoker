@@ -4,6 +4,7 @@ import BackgroundSound from "../../shared/components/BackgroundSound";
 import Modal from "../../shared/components/Modal";
 import OutlineButton from "../../shared/components/OutlineButton";
 import usePuzzleStore from "../../store/usePuzzleStore";
+import useThemeStore from "../../store/useThemeStore";
 import useUserStore from "../../store/useUserStore";
 import Board from "../SudokuGame/Board";
 import NumericKeypad from "../SudokuGame/NumericKeypad";
@@ -11,28 +12,30 @@ import CubeBoard from "./SudokuCube/CubeBoard";
 import CubeCell from "./SudokuCube/CubeCell";
 
 function SudokuPuzzles() {
+  const answerSudoku = usePuzzleStore((state) => state.answerSudoku);
+  const emptyCellPosition = usePuzzleStore((state) => state.emptyCellPosition);
+  const currentLayer = usePuzzleStore((state) => state.currentLayer);
+  const userInputValues = useUserStore((state) => state.userInputValues);
+  const completedBoards = usePuzzleStore((state) => state.completedBoards);
+  const theme = useThemeStore((state) => state.theme);
+  const setTheme = useThemeStore((state) => state.setTheme);
+
   const [viewMode, setViewMode] = useState("threeDimensions");
   const [isLayerView, setIsLayerView] = useState(false);
   const [sudokuMap, setSudokuMap] = useState([]);
   const [positionOfEmptyCell, setPositionOfEmptyCell] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const navigate = useNavigate();
-  const answerSudoku = usePuzzleStore((state) => state.answerSudoku);
-  const emptyCellPosition = usePuzzleStore((state) => state.emptyCellPosition);
-  const currentLayer = usePuzzleStore((state) => state.currentLayer);
-  const userInputValues = useUserStore((state) => state.userInputValues);
-  const completedBoards = usePuzzleStore((state) => state.completedBoards);
-  const theme = usePuzzleStore((state) => state.theme);
-  const setTheme = usePuzzleStore((state) => state.setTheme);
 
   useEffect(() => {
+    setTheme(theme);
     setSudokuMap(answerSudoku[8 - currentLayer]);
     setPositionOfEmptyCell(emptyCellPosition[8 - currentLayer]);
 
     if (completedBoards[currentLayer]) {
       setIsModalVisible(true);
     }
-  }, [answerSudoku, emptyCellPosition, currentLayer, completedBoards]);
+  }, [answerSudoku, emptyCellPosition, currentLayer, completedBoards, setTheme, theme]);
 
   const getCubeBoard = useCallback(() => {
     const isEmpty = (layer, rowIndex, colIndex) => {

@@ -2,11 +2,12 @@ import { Billboard, Box, Line, Text } from "@react-three/drei";
 import PropTypes from "prop-types";
 import { useRef, useState } from "react";
 import usePuzzleStore from "../../../store/usePuzzleStore";
+import useThemeStore from "../../../store/useThemeStore";
 
 function CubeCell({ position, number, isEmpty, userInputValue }) {
   const setCurrentLayer = usePuzzleStore((state) => state.setCurrentLayer);
   const currentLayer = usePuzzleStore((state) => state.currentLayer);
-  const theme = usePuzzleStore((state) => state.theme);
+  const theme = useThemeStore((state) => state.theme);
   const cubeCell = useRef();
   const [hoveredCell, setHoveredCell] = useState(null);
   const isHovered = position.join() === hoveredCell;

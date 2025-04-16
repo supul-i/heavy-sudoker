@@ -3,21 +3,31 @@ import { useNavigate } from "react-router-dom";
 import { PUZZLE_SIZE } from "../constants/puzzle";
 import OutlineButton from "../shared/components/OutlineButton";
 import usePuzzleStore from "../store/usePuzzleStore";
+import useThemeStore from "../store/useThemeStore";
 import useUserStore from "../store/useUserStore";
 import getEmptyCellsIndex from "../utils/getEmptyCellsIndex";
 import setSudoku from "../utils/setSudoku";
 
 function Home() {
-  const navigate = useNavigate();
   const setAnswerSudoku = usePuzzleStore((state) => state.setAnswerSudoku);
   const setEmptyCellPosition = usePuzzleStore((state) => state.setEmptyCellPosition);
   const resetPuzzle = usePuzzleStore((state) => state.resetPuzzle);
   const resetAllUserHistory = useUserStore((state) => state.resetAllUserHistory);
+  const theme = useThemeStore((state) => state.theme);
+  const setTheme = useThemeStore((state) => state.setTheme);
+  const navigate = useNavigate();
 
   useEffect(() => {
+    const getInitialTheme = () => {
+      const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      return isDark ? "dark" : "light";
+    };
+    const newTheme = theme || getInitialTheme();
+
+    setTheme(newTheme);
     resetPuzzle();
     resetAllUserHistory();
-  }, [resetPuzzle, resetAllUserHistory]);
+  }, [resetPuzzle, resetAllUserHistory, setTheme, theme]);
 
   const handlePlaySudoku = (difficultyLevel) => {
     const sudokuMap = Array(PUZZLE_SIZE)
