@@ -1,10 +1,5 @@
 import { getRandomNum } from "./setSudoku";
-import {
-  PUZZLE_SIZE,
-  EMPTY_CELLS_EASY,
-  EMPTY_CELLS_NORMAL,
-  EMPTY_CELLS_HARD,
-} from "../constants/puzzle";
+import { PUZZLE_SIZE, EMPTY_CELLS_DIFFICULTY } from "../constants/puzzle";
 
 const setEmptyCell = (colIndexes: number[]): number[] => {
   const selectableIndexes: number[] = Array.from(
@@ -19,12 +14,7 @@ const setEmptyCell = (colIndexes: number[]): number[] => {
 };
 
 const getEmptyCellsIndex = (difficultyLevel: "easy" | "normal" | "hard"): number[][] => {
-  const numberOfEmptyCells =
-    difficultyLevel === "easy"
-      ? EMPTY_CELLS_EASY
-      : difficultyLevel === "normal"
-        ? EMPTY_CELLS_NORMAL
-        : EMPTY_CELLS_HARD;
+  const numberOfEmptyCells = EMPTY_CELLS_DIFFICULTY[difficultyLevel];
   let emptyCellPosition: number[][] = Array.from({ length: PUZZLE_SIZE }, () => []);
 
   for (let i = 0; i < numberOfEmptyCells; i++) {
