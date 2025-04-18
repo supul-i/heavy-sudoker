@@ -6,8 +6,8 @@ import OutlineButton from "../../shared/components/OutlineButton";
 import usePuzzleStore from "../../store/usePuzzleStore";
 import useThemeStore from "../../store/useThemeStore";
 import useUserStore from "../../store/useUserStore";
-import Board from "../SudokuGame/Board";
-import NumericKeypad from "../SudokuGame/NumericKeypad";
+import Board from "./Board";
+import NumericKeypad from "./NumericKeypad";
 import CubeBoard from "./SudokuCube/CubeBoard";
 import CubeCell from "./SudokuCube/CubeCell";
 
