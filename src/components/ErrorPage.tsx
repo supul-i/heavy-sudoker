@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 function ErrorPage() {
   const navigate = useNavigate();
 
-  const handleGoHomePage = () => {
+  const handleGoHomePage = (): void => {
     navigate("/");
   };
 
