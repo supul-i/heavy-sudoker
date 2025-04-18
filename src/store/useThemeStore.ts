@@ -1,7 +1,14 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-const useThemeStore = create(
+type Theme = "light" | "dark" | "";
+
+type ThemeState = {
+  theme: Theme;
+  setTheme: (newTheme: Theme) => void;
+};
+
+const useThemeStore = create<ThemeState>()(
   persist(
     (set) => ({
       theme: "",

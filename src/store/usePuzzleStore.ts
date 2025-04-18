@@ -1,7 +1,27 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-const initialState = {
+type CurrentCell = { row: number; col: number };
+
+type PuzzleState = {
+  answerSudoku: number[][];
+  emptyCellPosition: number[][];
+  currentCell: CurrentCell;
+  currentLayer: number;
+  completedBoards: boolean[];
+
+  setAnswerSudoku: (newPuzzle: number[][]) => void;
+  setEmptyCellPosition: (emptyCellPosition: number[][]) => void;
+  setCurrentCell: (newCurrentCell: CurrentCell) => void;
+  setCurrentLayer: (newLayer: number) => void;
+  setBoardsCompleted: (boardLayer: number) => void;
+  resetPuzzle: () => void;
+};
+
+const initialState: Pick<
+  PuzzleState,
+  "answerSudoku" | "emptyCellPosition" | "currentCell" | "currentLayer" | "completedBoards"
+> = {
   answerSudoku: [],
   emptyCellPosition: Array.from({ length: 9 }, () => []),
   currentCell: { row: 0, col: 0 },
@@ -9,7 +29,7 @@ const initialState = {
   completedBoards: Array.from({ length: 9 }, () => false),
 };
 
-const usePuzzleStore = create(
+const usePuzzleStore = create<PuzzleState>()(
   persist(
     (set) => ({
       ...initialState,
