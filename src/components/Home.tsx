@@ -18,7 +18,7 @@ function Home() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const getInitialTheme = () => {
+    const getInitialTheme = (): "light" | "dark" => {
       const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
       return isDark ? "dark" : "light";
     };
@@ -29,16 +29,13 @@ function Home() {
     resetAllUserHistory();
   }, [resetPuzzle, resetAllUserHistory, setTheme, theme]);
 
-  const handlePlaySudoku = (difficultyLevel) => {
-    const sudokuMap = Array(PUZZLE_SIZE)
-      .fill()
-      .map(() => setSudoku());
+  const handlePlaySudoku = (difficultyLevel: "easy" | "normal" | "hard") => {
+    const sudokuMap = Array.from({ length: PUZZLE_SIZE }, () => setSudoku());
     setAnswerSudoku(sudokuMap);
 
-    const emptyCellPositions = Array(PUZZLE_SIZE)
-      .fill()
-      .map(() => getEmptyCellsIndex(difficultyLevel));
-
+    const emptyCellPositions = Array.from({ length: PUZZLE_SIZE }, () =>
+      getEmptyCellsIndex(difficultyLevel)
+    );
     setEmptyCellPosition(emptyCellPositions);
 
     navigate("/sudoku", { replace: true });

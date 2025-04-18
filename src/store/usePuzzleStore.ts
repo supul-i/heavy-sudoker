@@ -4,14 +4,14 @@ import { persist } from "zustand/middleware";
 type CurrentCell = { row: number; col: number };
 
 type PuzzleState = {
-  answerSudoku: number[][];
-  emptyCellPosition: number[][];
+  answerSudoku: number[][][];
+  emptyCellPosition: number[][][];
   currentCell: CurrentCell;
   currentLayer: number;
   completedBoards: boolean[];
 
-  setAnswerSudoku: (newPuzzle: number[][]) => void;
-  setEmptyCellPosition: (emptyCellPosition: number[][]) => void;
+  setAnswerSudoku: (newPuzzle: number[][][]) => void;
+  setEmptyCellPosition: (emptyCellPosition: number[][][]) => void;
   setCurrentCell: (newCurrentCell: CurrentCell) => void;
   setCurrentLayer: (newLayer: number) => void;
   setBoardsCompleted: (boardLayer: number) => void;
