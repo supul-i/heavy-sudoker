@@ -1,25 +1,35 @@
 import { Billboard, Box, Line, Text } from "@react-three/drei";
-import PropTypes from "prop-types";
+import { ThreeEvent } from "@react-three/fiber";
 import { useRef, useState } from "react";
+import { Mesh, MeshBasicMaterial } from "three";
 import usePuzzleStore from "../../../store/usePuzzleStore";
 import useThemeStore from "../../../store/useThemeStore";
 
-function CubeCell({ position, number, isEmpty, userInputValue }) {
+type CubeCellProps = {
+  position: [number, number, number];
+  number: number;
+  isEmpty: boolean;
+  userInputValue: number | null;
+};
+
+function CubeCell({ position, number, isEmpty, userInputValue }: CubeCellProps) {
   const setCurrentLayer = usePuzzleStore((state) => state.setCurrentLayer);
   const currentLayer = usePuzzleStore((state) => state.currentLayer);
   const theme = useThemeStore((state) => state.theme);
-  const cubeCell = useRef();
-  const [hoveredCell, setHoveredCell] = useState(null);
+  const cubeCell = useRef<Mesh>(null);
+  const [hoveredCell, setHoveredCell] = useState<string | null>(null);
   const isHovered = position.join() === hoveredCell;
   const isHighlighted = position[0] === currentLayer;
 
-  const handleSelectBoard = (e) => {
+  const handleSelectBoard = (e: ThreeEvent<MouseEvent>) => {
     e.stopPropagation();
     setCurrentLayer(position[0]);
-    cubeCell.current?.material.color.set("purple");
+
+    const currentCubeCell = cubeCell.current?.material as MeshBasicMaterial;
+    currentCubeCell.color.set("purple");
   };
 
-  const handleHoveredCell = (e) => {
+  const handleHoveredCell = (e: ThreeEvent<PointerEvent>) => {
     e.stopPropagation();
     setHoveredCell(`${position[0]},${position[1]},${position[2]}`);
   };
@@ -107,12 +117,5 @@ function CubeCell({ position, number, isEmpty, userInputValue }) {
     </group>
   );
 }
-
-CubeCell.propTypes = {
-  position: PropTypes.array.isRequired,
-  number: PropTypes.number,
-  isEmpty: PropTypes.bool.isRequired,
-  userInputValue: PropTypes.number,
-};
 
 export default CubeCell;

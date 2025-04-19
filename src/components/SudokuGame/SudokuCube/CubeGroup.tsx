@@ -1,11 +1,21 @@
 import { animated, useSpring } from "@react-spring/three";
-import PropTypes from "prop-types";
+import { JSX } from "react";
 import usePuzzleStore from "../../../store/usePuzzleStore";
 
-function CubeGroup({ group, isLayerView }) {
+type CubeGroupProps = {
+  group: { xPosition: number; cubes: JSX.Element[] };
+  isLayerView: boolean;
+};
+
+type SpringValues = {
+  position: [number, number, number];
+  rotation: number;
+};
+
+function CubeGroup({ group, isLayerView }: CubeGroupProps) {
   const currentLayer = usePuzzleStore((state) => state.currentLayer);
   const X_AXIS_CHANGE = 7;
-  const { position, rotation } = useSpring({
+  const { position, rotation } = useSpring<SpringValues>({
     position:
       isLayerView && group.xPosition === currentLayer
         ? [group.xPosition + X_AXIS_CHANGE / 2, 0, 0]
@@ -21,10 +31,5 @@ function CubeGroup({ group, isLayerView }) {
     </animated.group>
   );
 }
-
-CubeGroup.propTypes = {
-  group: PropTypes.object.isRequired,
-  isLayerView: PropTypes.bool.isRequired,
-};
 
 export default CubeGroup;

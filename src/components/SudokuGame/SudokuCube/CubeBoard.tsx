@@ -1,12 +1,16 @@
 import { Canvas } from "@react-three/fiber";
-import PropTypes from "prop-types";
-import { Suspense } from "react";
+import { JSX, Suspense } from "react";
 import { PUZZLE_SIZE } from "../../../constants/puzzle";
 import Loading from "../../../shared/components/LoadingDots";
 import CubeGroup from "./CubeGroup";
 import CubeOrbitControls from "./CubeOrbitControls";
 
-function CubeBoard({ getCubeBoard, isLayerView }) {
+type CubeBoardProps = {
+  getCubeBoard: () => JSX.Element[];
+  isLayerView: boolean;
+};
+
+function CubeBoard({ getCubeBoard, isLayerView }: CubeBoardProps) {
   const cubeMap = getCubeBoard();
   const xValues = Array.from({ length: PUZZLE_SIZE }, (_, i) => i);
   const xAxisCubeGroups = xValues.map((xPosition) => ({
@@ -32,10 +36,5 @@ function CubeBoard({ getCubeBoard, isLayerView }) {
     </Suspense>
   );
 }
-
-CubeBoard.propTypes = {
-  getCubeBoard: PropTypes.func.isRequired,
-  isLayerView: PropTypes.bool.isRequired,
-};
 
 export default CubeBoard;
