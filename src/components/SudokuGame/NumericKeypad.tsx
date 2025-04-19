@@ -11,7 +11,7 @@ function NumericKeypad() {
   const updateUserInputValue = useUserStore((state) => state.updateUserInputValue);
   const resetSudoku = useUserStore((state) => state.resetLayerUserHistory);
 
-  const handleSelectedNumber = (number) => {
+  const handleSelectedNumber = (number: number | null) => {
     playClickKeyPadSound();
 
     if (number) {

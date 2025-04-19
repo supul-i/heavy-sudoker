@@ -1,7 +1,18 @@
-import PropTypes from "prop-types";
-import { useEffect, useRef } from "react";
+import { KeyboardEvent, useEffect, useRef } from "react";
 import usePuzzleStore from "../../store/usePuzzleStore";
 import { playClickKeyPadSound, playClickSound } from "../../utils/audio";
+
+type CellProps = {
+  rowIndex: number;
+  colIndex: number;
+  fixedNumber: number;
+  isEmpty: boolean;
+  isSelected: boolean;
+  userInputValue: number | null;
+  isIncorrect: boolean;
+  handleSelectedNumber: (number: number) => void;
+  isBackgroundCell: boolean;
+};
 
 function Cell({
   rowIndex,
@@ -13,8 +24,8 @@ function Cell({
   isIncorrect,
   handleSelectedNumber,
   isBackgroundCell,
-}) {
-  const cell = useRef();
+}: CellProps) {
+  const cell = useRef<HTMLDivElement | null>(null);
   const setCurrentCell = usePuzzleStore((state) => state.setCurrentCell);
 
   useEffect(() => {
@@ -26,7 +37,7 @@ function Cell({
     setCurrentCell({ row: rowIndex, col: colIndex });
   };
 
-  const handleKeyBoard = (e) => {
+  const handleKeyBoard = (e: KeyboardEvent<HTMLDivElement>) => {
     if (Number(e.key) > 0 && Number(e.key) < 10) {
       playClickKeyPadSound();
       handleSelectedNumber(Number(e.key));
@@ -67,17 +78,5 @@ function Cell({
     </>
   );
 }
-
-Cell.propTypes = {
-  rowIndex: PropTypes.number.isRequired,
-  colIndex: PropTypes.number.isRequired,
-  fixedNumber: PropTypes.number.isRequired,
-  isEmpty: PropTypes.bool.isRequired,
-  isSelected: PropTypes.bool.isRequired,
-  userInputValue: PropTypes.number,
-  isIncorrect: PropTypes.bool.isRequired,
-  handleSelectedNumber: PropTypes.func.isRequired,
-  isBackgroundCell: PropTypes.bool.isRequired,
-};
 
 export default Cell;

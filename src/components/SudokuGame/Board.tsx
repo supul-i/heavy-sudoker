@@ -1,16 +1,20 @@
-import PropTypes from "prop-types";
 import { useCallback, useEffect } from "react";
 import usePuzzleStore from "../../store/usePuzzleStore";
 import useUserStore from "../../store/useUserStore";
 import { isValid } from "../../utils/setSudoku";
 import Cell from "./Cell";
 
-function Board({ sudokuMap, positionOfEmptyCell }) {
+type BoardProps = {
+  sudokuMap: number[][];
+  positionOfEmptyCell: number[][];
+};
+
+function Board({ sudokuMap, positionOfEmptyCell }: BoardProps) {
   const setCurrentCell = usePuzzleStore((state) => state.setCurrentCell);
   const currentCell = usePuzzleStore((state) => state.currentCell);
   const currentLayer = usePuzzleStore((state) => state.currentLayer);
   const setBoardsCompleted = usePuzzleStore((state) => state.setBoardsCompleted);
-  const userInputValues = useUserStore((state) => state.userInputValues);
+  const userInputValues = useUserStore((state) => state.userInputValues) as number[][][];
   const updateUserInputValue = useUserStore((state) => state.updateUserInputValue);
 
   useEffect(() => {
@@ -19,7 +23,7 @@ function Board({ sudokuMap, positionOfEmptyCell }) {
     setCurrentCell({ row: 0, col: defaultSelectedCell });
   }, [positionOfEmptyCell, setCurrentCell]);
 
-  const isEmpty = (rowIndex, colIndex) => {
+  const isEmpty = (rowIndex: number, colIndex: number): boolean => {
     return positionOfEmptyCell[rowIndex].includes(colIndex);
   };
 
@@ -58,7 +62,7 @@ function Board({ sudokuMap, positionOfEmptyCell }) {
     return { incorrectPosition, sudokuPuzzle };
   }, [sudokuMap, positionOfEmptyCell, userInputValues, currentLayer]);
 
-  const checkCompletedBoard = () => {
+  const checkCompletedBoard = (): boolean => {
     const { incorrectPosition, sudokuPuzzle } = CheckUserInput();
     const allCellsFilled = sudokuPuzzle.every((row) => row.every((cell) => cell !== 0));
 
@@ -73,18 +77,18 @@ function Board({ sudokuMap, positionOfEmptyCell }) {
     }
   }, [currentLayer, userInputValues, sudokuMap, positionOfEmptyCell, setBoardsCompleted]);
 
-  const isIncorrect = (row, col, inputValue) => {
+  const isIncorrect = (row: number, col: number, inputValue: number): boolean => {
     const { incorrectPosition, sudokuPuzzle } = CheckUserInput();
     let isIncorrect = false;
 
     for (const position of incorrectPosition.keys()) {
-      const [incorrectRow, incorrectCol] = position.split("-");
+      const [incorrectRow, incorrectCol] = position.split("-").map(Number);
 
       if (
-        Number(incorrectRow) === row ||
-        Number(incorrectCol) === col ||
-        (row - (row % 3) === Number(incorrectRow) - (Number(incorrectRow) % 3) &&
-          col - (col % 3) === Number(incorrectCol) - (Number(incorrectCol) % 3))
+        incorrectRow === row ||
+        incorrectCol === col ||
+        (row - (row % 3) === incorrectRow - (incorrectRow % 3) &&
+          col - (col % 3) === incorrectCol - (incorrectCol % 3))
       ) {
         isIncorrect =
           incorrectPosition.get(position) === sudokuPuzzle[row][col] ||
@@ -99,18 +103,18 @@ function Board({ sudokuMap, positionOfEmptyCell }) {
     return isIncorrect;
   };
 
-  const isSelected = (rowIndex, colIndex) => {
+  const isSelected = (rowIndex: number, colIndex: number): boolean => {
     if (currentCell.row === rowIndex && currentCell.col === colIndex) {
       return true;
     }
     return false;
   };
 
-  const handleSelectedNumber = (number) => {
+  const handleSelectedNumber = (number: number): void => {
     updateUserInputValue(8 - currentLayer, currentCell.row, currentCell.col, number);
   };
 
-  const isBackgroundCell = (rowIndex, colIndex) => {
+  const isBackgroundCell = (rowIndex: number, colIndex: number): boolean => {
     if (
       currentCell.row === rowIndex ||
       currentCell.col === colIndex ||
@@ -150,10 +154,5 @@ function Board({ sudokuMap, positionOfEmptyCell }) {
     </div>
   );
 }
-
-Board.propTypes = {
-  sudokuMap: PropTypes.array.isRequired,
-  positionOfEmptyCell: PropTypes.array.isRequired,
-};
 
 export default Board;

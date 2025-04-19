@@ -11,6 +11,8 @@ import NumericKeypad from "./NumericKeypad";
 import CubeBoard from "./SudokuCube/CubeBoard";
 import CubeCell from "./SudokuCube/CubeCell";
 
+type ViewMode = "threeDimensions" | "twoDimensions";
+
 function SudokuPuzzles() {
   const answerSudoku = usePuzzleStore((state) => state.answerSudoku);
   const emptyCellPosition = usePuzzleStore((state) => state.emptyCellPosition);
@@ -20,11 +22,11 @@ function SudokuPuzzles() {
   const theme = useThemeStore((state) => state.theme);
   const setTheme = useThemeStore((state) => state.setTheme);
 
-  const [viewMode, setViewMode] = useState("threeDimensions");
-  const [isLayerView, setIsLayerView] = useState(false);
-  const [sudokuMap, setSudokuMap] = useState([]);
-  const [positionOfEmptyCell, setPositionOfEmptyCell] = useState([]);
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [viewMode, setViewMode] = useState<ViewMode>("threeDimensions");
+  const [isLayerView, setIsLayerView] = useState<boolean>(false);
+  const [sudokuMap, setSudokuMap] = useState<number[][]>([]);
+  const [positionOfEmptyCell, setPositionOfEmptyCell] = useState<number[][]>([]);
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -38,7 +40,7 @@ function SudokuPuzzles() {
   }, [answerSudoku, emptyCellPosition, currentLayer, completedBoards, setTheme, theme]);
 
   const getCubeBoard = useCallback(() => {
-    const isEmpty = (layer, rowIndex, colIndex) => {
+    const isEmpty = (layer: number, rowIndex: number, colIndex: number): boolean => {
       return emptyCellPosition[layer][rowIndex].includes(colIndex);
     };
     const cubeBoard = [];
@@ -67,11 +69,9 @@ function SudokuPuzzles() {
   };
 
   const handleViewMode = () => {
-    if (viewMode === "threeDimensions") {
-      setViewMode("twoDimensions");
-    } else {
-      setViewMode("threeDimensions");
-    }
+    setViewMode((prevMode) =>
+      prevMode === "threeDimensions" ? "twoDimensions" : "threeDimensions"
+    );
   };
 
   const handleGoHomePage = () => {
