@@ -1,22 +1,30 @@
-import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
 import backgroundMusic from "../../assets/sound/background.mp3";
 import OutlineButton from "./OutlineButton";
 
-function BackgroundSound({ loop = true, volume = 0.5 }) {
-  const audio = useRef(null);
-  const [isPlay, setIsPlay] = useState(true);
+type BackgroundSoundProps = {
+  loop: boolean;
+  volume: number;
+};
+
+function BackgroundSound({ loop = true, volume = 0.5 }: BackgroundSoundProps) {
+  const audio = useRef<HTMLAudioElement | null>(null);
+  const [isPlay, setIsPlay] = useState<boolean>(true);
 
   useEffect(() => {
-    audio.current.loop = loop;
-    audio.current.volume = volume;
+    if (audio.current) {
+      audio.current.loop = loop;
+      audio.current.volume = volume;
+    }
   }, [audio, loop, volume]);
 
-  const handlePlay = () => {
-    if (isPlay) {
-      audio.current.pause();
-    } else {
-      audio.current.play();
+  const togglePlay = () => {
+    if (audio.current) {
+      if (isPlay) {
+        audio.current.pause();
+      } else {
+        audio.current.play();
+      }
     }
 
     setIsPlay(!isPlay);
@@ -25,14 +33,9 @@ function BackgroundSound({ loop = true, volume = 0.5 }) {
   return (
     <>
       <audio ref={audio} src={backgroundMusic} autoPlay loop muted={false} />
-      <OutlineButton onClick={handlePlay} text={isPlay ? "정지" : "재생"} size="S" />
+      <OutlineButton onClick={togglePlay} text={isPlay ? "정지" : "재생"} size="S" />
     </>
   );
 }
-
-BackgroundSound.propTypes = {
-  loop: PropTypes.bool,
-  volume: PropTypes.number,
-};
 
 export default BackgroundSound;

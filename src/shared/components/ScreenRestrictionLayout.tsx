@@ -1,10 +1,13 @@
-import PropTypes from "prop-types";
-import { useEffect, useState } from "react";
+import { useEffect, useState, ReactNode } from "react";
 import { MIN_SCREEN_HEIGHT, MIN_SCREEN_WIDTH, THROTTLE_DELAY } from "../../constants/layout";
 import throttle from "../../utils/throttle";
 import GuideMessage from "./GuideMessage";
 
-function ScreenRestrictionLayout({ children }) {
+type ScreenRestrictionLayoutProps = {
+  children: ReactNode;
+};
+
+function ScreenRestrictionLayout({ children }: ScreenRestrictionLayoutProps) {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
 
@@ -31,9 +34,5 @@ function ScreenRestrictionLayout({ children }) {
     </>
   );
 }
-
-ScreenRestrictionLayout.propTypes = {
-  children: PropTypes.node,
-};
 
 export default ScreenRestrictionLayout;

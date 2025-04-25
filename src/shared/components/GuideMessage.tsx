@@ -1,6 +1,8 @@
-import PropTypes from "prop-types";
+type GuideMessageProps = {
+  message: string;
+};
 
-function GuideMessage({ message }) {
+function GuideMessage({ message }: GuideMessageProps) {
   return (
     <>
       <div className="flex h-screen items-center justify-center">
@@ -14,9 +16,5 @@ function GuideMessage({ message }) {
     </>
   );
 }
-
-GuideMessage.propTypes = {
-  message: PropTypes.string,
-};
 
 export default GuideMessage;

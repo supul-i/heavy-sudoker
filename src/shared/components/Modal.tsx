@@ -1,7 +1,13 @@
-import PropTypes from "prop-types";
 import { PUZZLE_SIZE } from "../../constants/puzzle";
 
-function Modal({ isOpen, closeModal, handleGoCubeBoard, numOfCompleted }) {
+type ModalProps = {
+  isOpen: boolean;
+  closeModal: () => void;
+  handleGoCubeBoard: () => void;
+  numOfCompleted: number;
+};
+
+function Modal({ isOpen, closeModal, handleGoCubeBoard, numOfCompleted }: ModalProps) {
   if (!isOpen) {
     return null;
   }
@@ -31,12 +37,5 @@ function Modal({ isOpen, closeModal, handleGoCubeBoard, numOfCompleted }) {
     </div>
   );
 }
-
-Modal.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
-  closeModal: PropTypes.func.isRequired,
-  handleGoCubeBoard: PropTypes.func.isRequired,
-  numOfCompleted: PropTypes.number.isRequired,
-};
 
 export default Modal;
