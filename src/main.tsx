@@ -5,7 +5,7 @@ import router from "./router";
 import ScreenRestrictionLayout from "./shared/components/ScreenRestrictionLayout";
 import "./shared/global.css";
 
-createRoot(document.getElementById("root")).render(
+createRoot(document.getElementById("root") as HTMLElement).render(
   <StrictMode>
     <ScreenRestrictionLayout>
       <RouterProvider router={router} />
